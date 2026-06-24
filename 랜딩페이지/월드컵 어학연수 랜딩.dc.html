@@ -44,21 +44,10 @@
 
   <!-- ===== HERO ===== -->
   <section id="top" style="position:relative; min-height:88vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 22px 100px; background:var(--tile-dark-1); overflow:hidden;">
-    <!-- 구글 드라이브 기본 배경 영상 (업로드 시 덮어씀) -->
-    <sc-if value="{{ heroHasVideo }}" hint-placeholder-val="{{ false }}">
-      <div style="position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; animation:heroVideoFade 14s ease-in-out infinite;">
-        <video src="{{ heroVideoUrl }}" autoplay="" muted="" loop="" playsinline="" style="position:absolute; top:50%; left:50%; min-width:100%; min-height:100%; transform:translate(-50%,-50%); object-fit:cover;"></video>
-      </div>
-    </sc-if>
-    <sc-if value="{{ heroShowDrive }}" hint-placeholder-val="{{ true }}">
-      <div style="position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; animation:heroVideoFade 14s ease-in-out infinite;">
-        <iframe src="https://drive.google.com/file/d/1gYuRBtc-1BNw_HZs7ALtQww7pYuPnkiz/preview?autoplay=1" allow="autoplay" style="position:absolute; top:50%; left:50%; width:177.78vh; height:100vh; min-width:100%; min-height:56.25vw; transform:translate(-50%,-50%); border:0;"></iframe>
-      </div>
-    </sc-if>
-    <label style="position:absolute; z-index:4; bottom:20px; right:20px; display:inline-flex; align-items:center; gap:6px; font:var(--text-caption); color:#fff; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.3); padding:8px 14px; border-radius:9999px; cursor:pointer; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
-      <span style="font-size:15px;" data-comment-anchor="c4b02bd52c-span">＋</span> 배경 영상 교체
-      <input type="file" accept="video/*" onChange="{{ onHeroFile }}" style="display:none;">
-    </label>
+    <!-- 배경 영상: 번들 mp4 자동재생·무음·루프 -->
+    <div style="position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; animation:heroVideoFade 14s ease-in-out infinite;">
+      <video src="uploads/hero.mp4" autoplay muted loop playsinline preload="auto" style="position:absolute; top:50%; left:50%; min-width:100%; min-height:100%; transform:translate(-50%,-50%); object-fit:cover;"></video>
+    </div>
     <div style="position: absolute; inset: 0; z-index: -68; background: linear-gradient(180deg, rgba(20,20,22,0.62) 0%, rgba(20,20,22,0.78) 100%); opacity: 1"></div>
     <div style="position:relative; z-index:3; max-width:900px;">
       <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--blue-on-dark); margin-bottom:20px;">2026 FIFA WORLD CUP · 미국 · 캐나다</div>
