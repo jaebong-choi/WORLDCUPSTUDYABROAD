@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="_ds/ds-456fbfaa-ac20-4a02-8741-385971a35b39/tokens/fonts.css">
+<link rel="stylesheet" href="_ds/ds-456fbfaa-ac20-4a02-8741-385971a35b39/tokens/colors.css">
+<link rel="stylesheet" href="_ds/ds-456fbfaa-ac20-4a02-8741-385971a35b39/tokens/typography.css">
+<link rel="stylesheet" href="_ds/ds-456fbfaa-ac20-4a02-8741-385971a35b39/tokens/spacing.css">
+<link rel="stylesheet" href="_ds/ds-456fbfaa-ac20-4a02-8741-385971a35b39/tokens/radius.css">
+<link rel="stylesheet" href="_ds/ds-456fbfaa-ac20-4a02-8741-385971a35b39/tokens/elevation.css">
+<link rel="stylesheet" href="_ds/ds-456fbfaa-ac20-4a02-8741-385971a35b39/tokens/base.css">
+<link rel="stylesheet" href="_ds/ds-456fbfaa-ac20-4a02-8741-385971a35b39/styles.css">
+<script src="_ds/ds-456fbfaa-ac20-4a02-8741-385971a35b39/_ds_bundle.js"></script>
+<script src="image-slot.js"></script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--font-text), -apple-system, sans-serif; }
+  * { box-sizing: border-box; }
+  @keyframes heroVideoFade { 0% { opacity: 0.18; filter: blur(4px); } 50% { opacity: 0.5; filter: blur(2px); } 100% { opacity: 0.18; filter: blur(4px); } }
+</style>
+</helmet>
+
+<div style="width:100%; overflow-x:hidden;">
+
+  <!-- ===== NAV ===== -->
+  <nav style="position:sticky; top:0; z-index:1000; display:flex; align-items:center; gap:24px; height:48px; padding:0 22px; background:rgba(0,0,0,0.86); backdrop-filter:saturate(180%) blur(20px); -webkit-backdrop-filter:saturate(180%) blur(20px);">
+    <a href="#top" style="display:inline-flex; align-items:center;"><img src="uploads/logo_file-1782271757291.png" alt="종로유학원" style="height: 66px; width: auto; display: block"></a>
+    <div style="display: flex; gap: 53px; flex: 1; align-items: center">
+      <a href="#cities" style="font:var(--text-nav); letter-spacing:var(--ls-micro); color:#fff; opacity:0.82; text-decoration:none;">도시</a>
+      <a href="#purpose" style="font:var(--text-nav); letter-spacing:var(--ls-micro); color:#fff; opacity:0.82; text-decoration:none;">목적별 추천</a>
+      <a href="#term" style="font:var(--text-nav); letter-spacing:var(--ls-micro); color:#fff; opacity:0.82; text-decoration:none;">기간</a>
+      <a href="#manage" style="font:var(--text-nav); letter-spacing:var(--ls-micro); color:#fff; opacity:0.82; text-decoration:none;">현지 관리</a>
+      <a href="#promo" style="font:var(--text-nav); letter-spacing:var(--ls-micro); color:#fff; opacity:0.82; text-decoration:none;">프로모션</a>
+      <a href="#faq" style="font:var(--text-nav); letter-spacing:var(--ls-micro); color:#fff; opacity:0.82; text-decoration:none;">FAQ</a>
+    </div>
+    <a href="https://www.coei.com/info/consult/reserve.php" target="_blank" rel="noopener" style="font:var(--text-button); letter-spacing:var(--ls-caption); color:#fff; background:var(--accent); padding:7px 15px; border-radius:var(--radius-pill); text-decoration:none;">무료 상담</a>
+  </nav>
+
+  <!-- ===== HERO ===== -->
+  <section id="top" style="position:relative; min-height:88vh; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; padding:120px 22px 100px; background:var(--tile-dark-1); overflow:hidden;">
+    <!-- 구글 드라이브 기본 배경 영상 (업로드 시 덮어씀) -->
+    <sc-if value="{{ heroHasVideo }}" hint-placeholder-val="{{ false }}">
+      <div style="position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; animation:heroVideoFade 14s ease-in-out infinite;">
+        <video src="{{ heroVideoUrl }}" autoplay="" muted="" loop="" playsinline="" style="position:absolute; top:50%; left:50%; min-width:100%; min-height:100%; transform:translate(-50%,-50%); object-fit:cover;"></video>
+      </div>
+    </sc-if>
+    <sc-if value="{{ heroShowDrive }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute; inset:0; z-index:1; overflow:hidden; pointer-events:none; animation:heroVideoFade 14s ease-in-out infinite;">
+        <iframe src="https://drive.google.com/file/d/1gYuRBtc-1BNw_HZs7ALtQww7pYuPnkiz/preview?autoplay=1" allow="autoplay" style="position:absolute; top:50%; left:50%; width:177.78vh; height:100vh; min-width:100%; min-height:56.25vw; transform:translate(-50%,-50%); border:0;"></iframe>
+      </div>
+    </sc-if>
+    <label style="position:absolute; z-index:4; bottom:20px; right:20px; display:inline-flex; align-items:center; gap:6px; font:var(--text-caption); color:#fff; background:rgba(0,0,0,0.5); border:1px solid rgba(255,255,255,0.3); padding:8px 14px; border-radius:9999px; cursor:pointer; backdrop-filter:blur(8px); -webkit-backdrop-filter:blur(8px);">
+      <span style="font-size:15px;" data-comment-anchor="c4b02bd52c-span">＋</span> 배경 영상 교체
+      <input type="file" accept="video/*" onChange="{{ onHeroFile }}" style="display:none;">
+    </label>
+    <div style="position: absolute; inset: 0; z-index: -68; background: linear-gradient(180deg, rgba(20,20,22,0.62) 0%, rgba(20,20,22,0.78) 100%); opacity: 1"></div>
+    <div style="position:relative; z-index:3; max-width:900px;">
+      <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--blue-on-dark); margin-bottom:20px;">2026 FIFA WORLD CUP · 미국 · 캐나다</div>
+      <h1 style="font:var(--fw-semibold) clamp(40px,6.5vw,76px)/1.05 var(--font-display); letter-spacing:var(--ls-hero); color:#fff; margin:0; text-wrap:balance;">세계가 모이는 도시에서,<br>영어를 배우다.</h1>
+      <p style="font:var(--fw-regular) clamp(19px,2.2vw,26px)/1.4 var(--font-display); color:rgba(255,255,255,0.86); margin:24px auto 0; max-width:680px; text-wrap:pretty;">월드컵의 열기가 가득한 북미 현장에서, 어학연수와 글로벌 문화를 동시에. 종로유학원이 완벽한 플랜을 함께 세웁니다.</p>
+      <div style="display:flex; gap:16px; justify-content:center; flex-wrap:wrap; margin-top:40px;">
+        <x-import component-from-global-scope="AppleStyleDesignSystem_456fbf.Button" variant="primary" size="lg" as="a" href="https://www.coei.com/info/consult/reserve.php" target="_blank" rel="noopener" hint-size="auto,52px">무료 상담 신청</x-import>
+        <a href="#cities" style="display:inline-flex; align-items:center; gap:4px; font:var(--fw-light) 18px/1 var(--font-text); color:var(--blue-on-dark); text-decoration:none; padding:14px 8px;">도시 둘러보기 ›</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== INTRO STRIP ===== -->
+  <section style="background:var(--white); padding:100px 22px; text-align:center;">
+    <div style="max-width:var(--content-text); margin:0 auto;">
+      <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); margin:0; text-wrap:balance;">지금, 북미에서의 연수는<br>특별합니다.</h2>
+      <p style="font:var(--fw-regular) 21px/1.5 var(--font-display); color:#6e6e73; margin:24px auto 0; max-width:720px; text-wrap:pretty;">전 세계가 모이는 국제 행사의 현장에서 언어를 배우고, 각국의 친구들과 어울리며 시야를 넓힙니다. 혼자 고민하지 마세요. 미리 도시를 정하고 계획을 세우면, 이 시기의 경험은 평생 남습니다.</p>
+    </div>
+  </section>
+
+  <!-- ===== CITIES ===== -->
+  <section id="cities" style="background:var(--parchment); padding:100px 22px; scroll-margin-top:60px;">
+    <div style="max-width:var(--content-grid); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--accent); margin-bottom:12px;">월드컵의 무대, 영어의 무대</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); margin:0;">북미 6개 대표 연수 도시.</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px;">
+        <sc-for list="{{ cities }}" as="city" hint-placeholder-count="6">
+          <div style="background:var(--white); border:1px solid var(--hairline); border-radius:var(--radius-lg); overflow:hidden; display:flex; flex-direction:column;">
+            <image-slot id="{{ city.slotId }}" shape="rect" fit="cover" placeholder="{{ city.placeholder }}" style="width:100%; height:200px; display:block;"></image-slot>
+            <div style="padding:24px;">
+              <div style="display:flex; align-items:baseline; justify-content:space-between; gap:8px;">
+                <div style="font:var(--text-display-md); letter-spacing:var(--ls-body);">{{ city.name }}</div>
+                <div style="font:var(--text-caption); color:var(--text-muted);">{{ city.country }}</div>
+              </div>
+              <div style="font:var(--text-caption); color:#86868b; margin-top:2px;">{{ city.en }} · {{ city.venue }}</div>
+              <p style="font:var(--text-body); letter-spacing:var(--ls-body); color:#424245; margin:14px 0 0; text-wrap:pretty;">{{ city.note }}</p>
+            </div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PURPOSE MATCH ===== -->
+  <section id="purpose" style="background:var(--tile-dark-1); padding:100px 22px; scroll-margin-top:60px;">
+    <div style="max-width:var(--content-grid); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:48px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--blue-on-dark); margin-bottom:12px;">목적별 추천</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); color:#fff; margin:0;">목적이 도시를 결정합니다.</h2>
+        <p style="font:var(--text-lead); color:var(--ink-muted-dark); margin:18px auto 0; max-width:600px;">무엇을 원하시나요? 목표를 고르면 어울리는 도시를 추천해 드립니다.</p>
+      </div>
+      <div style="display:flex; gap:12px; flex-wrap:wrap; justify-content:center; margin-bottom:40px;">
+        <sc-for list="{{ purposes }}" as="p" hint-placeholder-count="5">
+          <button onClick="{{ p.onClick }}" style="padding:12px 22px; border-radius:9999px; font:var(--fw-regular) 16px/1 var(--font-text); letter-spacing:-0.2px; cursor:pointer; transition:all 0.18s ease; background:{{ p.bg }}; color:#fff; border:1px solid {{ p.border }};">{{ p.label }}</button>
+        </sc-for>
+      </div>
+      <div style="text-align:center; margin-bottom:40px; min-height:34px;">
+        <p style="font:var(--text-lead); color:#fff; margin:0; max-width:720px; margin-left:auto; margin-right:auto; text-wrap:pretty;">{{ purposeBlurb }}</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(280px, 1fr)); gap:24px; max-width:1100px; margin:0 auto;">
+        <sc-for list="{{ matched }}" as="m" hint-placeholder-count="3">
+          <div style="background:var(--tile-dark-2); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius-lg); padding:28px;">
+            <div style="display:flex; align-items:baseline; gap:10px;">
+              <div style="font:var(--text-display-md); color:#fff;">{{ m.name }}</div>
+              <div style="font:var(--text-caption); color:var(--blue-on-dark);">{{ m.en }}</div>
+            </div>
+            <p style="font:var(--text-body); letter-spacing:var(--ls-body); color:var(--ink-muted-dark); margin:14px 0 0; text-wrap:pretty;">{{ m.reason }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TERM (short / long) ===== -->
+  <section id="term" style="background:var(--white); padding:100px 22px; scroll-margin-top:60px;">
+    <div style="max-width:var(--content-grid); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--accent); margin-bottom:12px;">단기 · 장기</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); margin:0;">기간은 목표에 맞춰서.</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:24px; max-width:1000px; margin:0 auto;">
+        <div style="background:var(--parchment); border-radius:var(--radius-lg); padding:40px;">
+          <div style="font:var(--text-caption-strong); letter-spacing:var(--ls-caption); color:var(--accent);">SHORT-TERM</div>
+          <div style="font:var(--text-display-md); margin:8px 0 4px;">단기 연수 · 4–12주</div>
+          <p style="font:var(--text-body); letter-spacing:var(--ls-body); color:#6e6e73; margin:0 0 24px;">방학과 휴가를 활용한 집중 연수. 월드컵 시즌의 생동감을 즐기며 회화를 끌어올립니다.</p>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;">
+            <sc-for list="{{ shortPoints }}" as="pt" hint-placeholder-count="4">
+              <li style="display:flex; gap:10px; align-items:flex-start; font:var(--text-body); color:var(--ink);"><span style="color:var(--accent); flex-shrink:0;">›</span>{{ pt }}</li>
+            </sc-for>
+          </ul>
+        </div>
+        <div style="background:var(--tile-dark-1); border-radius:var(--radius-lg); padding:40px;">
+          <div style="font:var(--text-caption-strong); letter-spacing:var(--ls-caption); color:var(--blue-on-dark);">LONG-TERM</div>
+          <div style="font:var(--text-display-md); color:#fff; margin:8px 0 4px;">장기 연수 · 24주+</div>
+          <p style="font:var(--text-body); letter-spacing:var(--ls-body); color:var(--ink-muted-dark); margin:0 0 24px;">정규 ESL과 진학·취업으로 이어지는 플랜. 장기 할인으로 비용 효율까지 챙깁니다.</p>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;">
+            <sc-for list="{{ longPoints }}" as="pt" hint-placeholder-count="4">
+              <li style="display:flex; gap:10px; align-items:flex-start; font:var(--text-body); color:#fff;"><span style="color:var(--blue-on-dark); flex-shrink:0;">›</span>{{ pt }}</li>
+            </sc-for>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== LOCAL MANAGEMENT ===== -->
+  <section id="manage" style="background:var(--parchment); padding:100px 22px; scroll-margin-top:60px;">
+    <div style="max-width:var(--content-grid); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--accent); margin-bottom:12px;">현지 지사 관리</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); margin:0;">떠난 뒤에도, 곁에 있습니다.</h2>
+        <p style="font:var(--text-lead); color:#6e6e73; margin:18px auto 0; max-width:680px;">뉴욕·밴쿠버·토론토를 비롯한 현지 지사가 학업부터 생활까지 한국어로 직접 챙깁니다.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(320px, 1fr)); gap:24px; max-width:1000px; margin:0 auto;">
+        <div style="background:var(--white); border:1px solid var(--hairline); border-radius:var(--radius-lg); padding:40px;">
+          <div style="font:var(--text-caption-strong); letter-spacing:var(--ls-caption); color:var(--accent);">ACADEMIC SUPPORT</div>
+          <div style="font:var(--text-display-md); margin:8px 0 20px;">학업 지원</div>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;">
+            <sc-for list="{{ academicSupport }}" as="a" hint-placeholder-count="8">
+              <li style="display:flex; gap:10px; align-items:flex-start; font:var(--text-body); letter-spacing:var(--ls-body); color:var(--ink);"><span style="color:var(--accent); flex-shrink:0;">›</span>{{ a }}</li>
+            </sc-for>
+          </ul>
+        </div>
+        <div style="background:var(--white); border:1px solid var(--hairline); border-radius:var(--radius-lg); padding:40px;">
+          <div style="font:var(--text-caption-strong); letter-spacing:var(--ls-caption); color:var(--accent);">LIFE / SETTLEMENT</div>
+          <div style="font:var(--text-display-md); margin:8px 0 20px;">생활 · 정착 지원</div>
+          <ul style="list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:12px;">
+            <sc-for list="{{ lifeSupport }}" as="l" hint-placeholder-count="8">
+              <li style="display:flex; gap:10px; align-items:flex-start; font:var(--text-body); letter-spacing:var(--ls-body); color:var(--ink);"><span style="color:var(--accent); flex-shrink:0;">›</span>{{ l }}</li>
+            </sc-for>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== STEPS ===== -->
+  <section style="background:var(--white); padding:100px 22px;">
+    <div style="max-width:var(--content-grid); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--accent); margin-bottom:12px;">준비 절차</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); margin:0;">상담부터 출국까지, 다섯 단계.</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(180px, 1fr)); gap:20px; max-width:1200px; margin:0 auto;">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="5">
+          <div style="border-top:2px solid var(--ink); padding-top:18px;">
+            <div style="font:var(--fw-semibold) 40px/1 var(--font-display); letter-spacing:var(--ls-display); color:var(--accent);">{{ s.num }}</div>
+            <div style="font:var(--text-body-strong); letter-spacing:var(--ls-body); margin:14px 0 6px;">{{ s.title }}</div>
+            <p style="font:var(--text-caption); color:#6e6e73; margin:0; text-wrap:pretty;">{{ s.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== REVIEWS ===== -->
+  <section style="background:var(--parchment); padding:100px 22px;">
+    <div style="max-width:var(--content-grid); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--accent); margin-bottom:12px;">수강생 이야기</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); margin:0;">먼저 다녀온 이야기.</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px; max-width:1100px; margin:0 auto;">
+        <sc-for list="{{ reviews }}" as="r" hint-placeholder-count="3">
+          <div style="background:var(--white); border:1px solid var(--hairline); border-radius:var(--radius-lg); padding:32px; display:flex; flex-direction:column;">
+            <p style="font:var(--fw-regular) 21px/1.45 var(--font-display); color:var(--ink); margin:0 0 24px; flex:1; text-wrap:pretty;">{{ r.quote }}</p>
+            <div style="font:var(--text-body-strong); letter-spacing:var(--ls-body);">{{ r.name }}</div>
+            <div style="font:var(--text-caption); color:var(--text-muted);">{{ r.meta }}</div>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== PROMO ===== -->
+  <section id="promo" style="background:var(--black); padding:100px 22px; scroll-margin-top:60px;">
+    <div style="max-width:var(--content-grid); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--blue-on-dark); margin-bottom:12px;">월드컵 시즌 프로모션</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); color:#fff; margin:0;">지금 시작하면, 더 많은 혜택.</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:1px; max-width:1100px; margin:0 auto; background:rgba(255,255,255,0.1); border:1px solid rgba(255,255,255,0.1); border-radius:var(--radius-lg); overflow:hidden;">
+        <sc-for list="{{ promos }}" as="pr" hint-placeholder-count="6">
+          <div style="background:var(--tile-dark-3); padding:32px;">
+            <div style="font:var(--text-body-strong); letter-spacing:var(--ls-body); color:#fff; margin-bottom:8px;">{{ pr.title }}</div>
+            <p style="font:var(--text-body); letter-spacing:var(--ls-body); color:var(--ink-muted-dark); margin:0; text-wrap:pretty;">{{ pr.desc }}</p>
+          </div>
+        </sc-for>
+      </div>
+      <div style="text-align:center; margin-top:40px;">
+        <x-import component-from-global-scope="AppleStyleDesignSystem_456fbf.Button" variant="primary" size="lg" as="a" href="https://csaf.coei.com/event.php" target="_blank" rel="noopener" hint-size="auto,52px">프로모션 전체 보기</x-import>
+        <p style="font:var(--text-caption); color:var(--text-muted); margin:20px auto 0; max-width:560px;">혜택은 어학원·시기에 따라 달라질 수 있으며, 자세한 내용은 무료 상담에서 안내해 드립니다.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section id="faq" style="background:var(--white); padding:100px 22px; scroll-margin-top:60px;">
+    <div style="max-width:var(--content-text); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:48px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--accent); margin-bottom:12px;">자주 묻는 질문</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); margin:0;">궁금한 점이 있으신가요?</h2>
+      </div>
+      <div style="border-top:1px solid var(--hairline);">
+        <sc-for list="{{ faqs }}" as="f" hint-placeholder-count="5">
+          <div style="border-bottom:1px solid var(--hairline);">
+            <button onClick="{{ f.onClick }}" style="width:100%; display:flex; align-items:center; justify-content:space-between; gap:16px; background:none; border:none; cursor:pointer; padding:24px 4px; text-align:left;">
+              <span style="font:var(--text-body-strong); letter-spacing:var(--ls-body); color:var(--ink);">{{ f.q }}</span>
+              <span style="font:var(--fw-light) 28px/1 var(--font-text); color:var(--accent); flex-shrink:0;">{{ f.sign }}</span>
+            </button>
+            <sc-if value="{{ f.open }}" hint-placeholder-val="{{ true }}">
+              <p style="font:var(--text-body); letter-spacing:var(--ls-body); color:#6e6e73; margin:0; padding:0 4px 28px; max-width:760px; text-wrap:pretty;">{{ f.a }}</p>
+            </sc-if>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VIDEOS ===== -->
+  <section id="videos" style="background:var(--black); padding:100px 22px; scroll-margin-top:60px;">
+    <div style="max-width:var(--content-grid); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:56px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--blue-on-dark); margin-bottom:12px;">영상으로 보기</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); color:#fff; margin:0;">현지의 분위기, 그대로.</h2>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(300px, 1fr)); gap:24px; max-width:1200px; margin:0 auto;">
+        <sc-for list="{{ videos }}" as="v" hint-placeholder-count="3">
+          <div style="border-radius:var(--radius-lg); overflow:hidden; aspect-ratio:16 / 9; background:var(--tile-dark-3); position:relative; border:1px solid rgba(255,255,255,0.1);">
+            <iframe src="{{ v.src }}" title="종로유학원 영상" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen="" style="width:100%; height:100%; border:0; display:block;"></iframe>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== BRANCHES ===== -->
+  <section id="branches" style="background:var(--parchment); padding:100px 22px; scroll-margin-top:60px;">
+    <div style="max-width:var(--content-grid); margin:0 auto;">
+      <div style="text-align:center; margin-bottom:48px;">
+        <div style="font:var(--text-tagline); letter-spacing:var(--ls-tagline); color:var(--accent); margin-bottom:12px;">현지 지사</div>
+        <h2 style="font:var(--text-display-lg); letter-spacing:var(--ls-display); margin:0;">북미 현지 지사 네트워크.</h2>
+        <p style="font:var(--text-lead); color:#6e6e73; margin:18px auto 0; max-width:640px;">월드컵이 열리는 도시 곳곳에, 종로유학원 지사가 있습니다.</p>
+      </div>
+      <div style="display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px; max-width:1100px; margin:0 auto;">
+        <sc-for list="{{ branches }}" as="b" hint-placeholder-count="5">
+          <a href="{{ b.href }}" target="_blank" rel="noopener" style="background: var(--white); border: 1px solid var(--hairline); border-radius: var(--radius-lg); padding: 28px; text-decoration: none; color: var(--ink); display: flex; flex-direction: column; width: 266px; height: 158px">
+            <div style="display:flex; align-items:center; gap:8px; flex-wrap:wrap;">
+              <span style="font:var(--text-display-md); letter-spacing:var(--ls-body);">{{ b.city }}</span>
+              <sc-if value="{{ b.wcHost }}" hint-placeholder-val="{{ true }}">
+                
+              </sc-if>
+            </div>
+            <div style="font:var(--text-caption); color:#86868b; margin-top:2px;">{{ b.en }}</div>
+            <sc-if value="{{ b.address }}" hint-placeholder-val="이 주소가 표시됩니다">
+              
+            </sc-if>
+            <div style="margin-top:auto; padding-top:18px; font:var(--text-body); letter-spacing:var(--ls-body); color:var(--accent);">지사 소개 ›</div>
+          </a>
+        </sc-for>
+      </div>
+      <div style="text-align:center; margin-top:36px;">
+        <a href="https://www.coei.com/info/branches/international.php" target="_blank" rel="noopener" style="display:inline-flex; align-items:center; gap:4px; font:var(--text-body); letter-spacing:var(--ls-body); color:var(--accent); text-decoration:none;">전 세계 해외 지사 모두 보기 ›</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section style="background:var(--tile-dark-1); padding:120px 22px; text-align:center;">
+    <div style="max-width:760px; margin:0 auto;">
+      <h2 style="font:var(--fw-semibold) clamp(34px,5vw,56px)/1.07 var(--font-display); letter-spacing:var(--ls-hero); color:#fff; margin:0; text-wrap:balance;">비용이 궁금하신가요?</h2>
+      <p style="font:var(--text-lead); color:var(--ink-muted-dark); margin:24px auto 0; max-width:600px; text-wrap:pretty;">도시·학교·기간에 따라 비용이 달라집니다. 1:1 무료 상담에서 정확하게 안내해 드립니다.</p>
+      <div style="margin-top:40px;">
+        <x-import component-from-global-scope="AppleStyleDesignSystem_456fbf.Button" variant="primary" size="lg" as="a" href="https://www.coei.com/info/consult/reserve.php" target="_blank" rel="noopener" hint-size="auto,52px">무료 상담 신청하기</x-import>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FOOTER ===== -->
+  <footer style="background:var(--parchment); padding:48px 22px; color:var(--ink-muted-80);">
+    <div style="max-width:var(--content-grid); margin:0 auto; display:grid; grid-template-columns:repeat(auto-fit, minmax(160px, 1fr)); gap:32px;">
+      <div>
+        <div style="font:var(--text-caption-strong); letter-spacing:var(--ls-caption); margin-bottom:8px;">어학연수</div>
+        <ul style="list-style:none; margin:0; padding:0;">
+          <li style="line-height:var(--lh-dense);"><a href="#cities" style="font:var(--text-fine); color:var(--ink-muted-80); text-decoration:none;">대표 도시</a></li>
+          <li style="line-height:var(--lh-dense);"><a href="#purpose" style="font:var(--text-fine); color:var(--ink-muted-80); text-decoration:none;">목적별 추천</a></li>
+          <li style="line-height:var(--lh-dense);"><a href="#term" style="font:var(--text-fine); color:var(--ink-muted-80); text-decoration:none;">단기 · 장기</a></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font:var(--text-caption-strong); letter-spacing:var(--ls-caption); margin-bottom:8px;">서비스</div>
+        <ul style="list-style:none; margin:0; padding:0;">
+          <li style="line-height:var(--lh-dense);"><a href="#manage" style="font:var(--text-fine); color:var(--ink-muted-80); text-decoration:none;">현지 지사 관리</a></li>
+          <li style="line-height:var(--lh-dense);"><a href="#faq" style="font:var(--text-fine); color:var(--ink-muted-80); text-decoration:none;">자주 묻는 질문</a></li>
+          <li style="line-height:var(--lh-dense);"><a href="https://csaf.coei.com/event.php" target="_blank" rel="noopener" style="font:var(--text-fine); color:var(--ink-muted-80); text-decoration:none;">프로모션</a></li>
+        </ul>
+      </div>
+      <div>
+        <div style="font:var(--text-caption-strong); letter-spacing:var(--ls-caption); margin-bottom:8px;">상담</div>
+        <ul style="list-style:none; margin:0; padding:0;">
+          <li style="line-height:var(--lh-dense);"><a href="https://www.coei.com/info/consult/reserve.php" target="_blank" rel="noopener" style="font:var(--text-fine); color:var(--ink-muted-80); text-decoration:none;">무료 상담 신청</a></li>
+          <li style="line-height:var(--lh-dense);"><a href="https://www.coei.com" target="_blank" rel="noopener" style="font:var(--text-fine); color:var(--ink-muted-80); text-decoration:none;">종로유학원 홈페이지</a></li>
+        </ul>
+      </div>
+    </div>
+    <div style="max-width:var(--content-grid); margin:32px auto 0; padding-top:17px; border-top:1px solid var(--hairline); font:var(--text-fine); color:var(--text-muted); text-wrap:pretty;">정확한 비용 및 일정은 종로유학원 무료 상담을 통해 안내해 드립니다. © 2026 종로유학원. 본 페이지는 어학연수 안내용이며, 혜택·프로모션은 변경될 수 있습니다.</div>
+  </footer>
+
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  state = { purpose: 'business', openFaq: 0, heroVideoUrl: '', videoUrls: ['', '', ''] };
+
+  onHeroFile = (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (f) this.setState({ heroVideoUrl: URL.createObjectURL(f) });
+  };
+
+  onVideoFile = (i) => (e) => {
+    const f = e.target.files && e.target.files[0];
+    if (!f) return;
+    const arr = this.state.videoUrls.slice();
+    arr[i] = URL.createObjectURL(f);
+    this.setState({ videoUrls: arr });
+  };
+
+  PURPOSES() {
+    return [
+      { id:'business', label:'비즈니스 · 취업 영어',
+        blurb:'실전 회화와 비즈니스 영어, 글로벌 커리어로 이어지는 도시.',
+        matched:[
+          { name:'뉴욕', en:'New York', reason:'세계 경제의 중심. 비즈니스 영어와 네트워킹의 최적지입니다.' },
+          { name:'샌프란시스코', en:'San Francisco', reason:'실리콘밸리와 스타트업이 모인 테크 영어 환경.' },
+          { name:'토론토', en:'Toronto', reason:'다국적 기업이 모인 캐나다의 경제 수도.' },
+        ]},
+      { id:'wh', label:'워홀 · 취업 연계',
+        blurb:'어학연수 후 워킹홀리데이로 자연스럽게 이어지는 장기 플랜.',
+        matched:[
+          { name:'밴쿠버', en:'Vancouver', reason:'한국인에게 익숙한 인프라와 풍부한 일자리, 안전한 환경.' },
+          { name:'토론토', en:'Toronto', reason:'다양한 일자리와 다문화 환경, 워홀의 본거지.' },
+        ]},
+      { id:'life', label:'여유 · 자연 · 안전',
+        blurb:'자연과 일상의 균형. 안전하게 적응하기 좋은 도시.',
+        matched:[
+          { name:'밴쿠버', en:'Vancouver', reason:'바다와 산이 어우러진, 깨끗하고 안전한 살기 좋은 도시.' },
+          { name:'보스턴', en:'Boston', reason:'차분하고 안전한 학구적 분위기.' },
+        ]},
+      { id:'academic', label:'진학 · 아카데믹',
+        blurb:'대학 진학(Pathway)과 학문적 영어를 목표로.',
+        matched:[
+          { name:'보스턴', en:'Boston', reason:'세계 최고의 대학들이 모인, 학문의 도시.' },
+          { name:'뉴욕', en:'New York', reason:'명문대와 다양한 Pathway 과정이 열려 있습니다.' },
+        ]},
+      { id:'culture', label:'문화 · 엔터 · 라이프',
+        blurb:'엔터테인먼트와 다양한 문화를 경험하며 배우는 영어.',
+        matched:[
+          { name:'로스앤젤레스', en:'Los Angeles', reason:'엔터테인먼트와 크리에이티브 산업의 본고장.' },
+          { name:'뉴욕', en:'New York', reason:'예술·공연·미식이 모인 문화의 용광로.' },
+        ]},
+    ];
+  }
+
+  renderVals() {
+    const cities = [
+      { name:'밴쿠버', en:'Vancouver', country:'캐나다', venue:'BC Place', note:'자연과 안전, 워홀로 이어지는 한국인 친화 도시.', slotId:'wc-city-van', placeholder:'밴쿠버 사진을 올려주세요' },
+      { name:'토론토', en:'Toronto', country:'캐나다', venue:'BMO Field', note:'다문화가 어우러진 캐나다 최대의 비즈니스 허브.', slotId:'wc-city-tor', placeholder:'토론토 사진을 올려주세요' },
+      { name:'뉴욕', en:'New York', country:'미국', venue:'MetLife · 결승전', note:'결승전이 열리는 무대. 세계 경제와 문화의 중심.', slotId:'wc-city-nyc', placeholder:'뉴욕 사진을 올려주세요' },
+      { name:'보스턴', en:'Boston', country:'미국', venue:'Gillette', note:'하버드·MIT가 모인, 학문과 역사의 도시.', slotId:'wc-city-bos', placeholder:'보스턴 사진을 올려주세요' },
+      { name:'로스앤젤레스', en:'Los Angeles', country:'미국', venue:'SoFi', note:'1년 내내 화창한, 엔터테인먼트의 본고장.', slotId:'wc-city-la', placeholder:'LA 사진을 올려주세요' },
+      { name:'샌프란시스코', en:'San Francisco', country:'미국', venue:"Levi's", note:'테크와 혁신이 살아 숨 쉬는 베이 에어리어.', slotId:'wc-city-sf', placeholder:'샌프란시스코 사진을 올려주세요' },
+    ];
+
+    const ps = this.PURPOSES();
+    const purposes = ps.map((p) => {
+      const sel = p.id === this.state.purpose;
+      return {
+        label: p.label,
+        bg: sel ? 'var(--accent)' : 'transparent',
+        border: sel ? 'var(--accent)' : 'rgba(255,255,255,0.28)',
+        onClick: () => this.setState({ purpose: p.id }),
+      };
+    });
+    const current = ps.find((p) => p.id === this.state.purpose) || ps[0];
+
+    const faqData = [
+      { q:'어학연수 비용은 얼마인가요?', a:'도시·학교·기간에 따라 비용이 달라집니다. 정확한 견적은 무료 상담에서 1:1로 안내해 드립니다.' },
+      { q:'영어가 부족해도 갈 수 있나요?', a:'왕초보부터 가능합니다. 레벨 테스트로 시작해 단계별 ESL 과정으로 차근차근 배웁니다.' },
+      { q:'월드컵 경기 관람과 병행할 수 있나요?', a:'네. 주말과 방과 후 일정으로 시즌의 열기를 즐기며 연수할 수 있도록 도시·학교를 제안합니다.' },
+      { q:'워킹홀리데이와 연계되나요?', a:'캐나다 밴쿠버·토론토를 중심으로, 어학연수 후 워홀로 이어지는 플랜을 함께 설계합니다.' },
+      { q:'현지에서 문제가 생기면 어떻게 하나요?', a:'종로유학원 현지 지사가 정착부터 긴급 상황까지 한국어로 지원합니다.' },
+    ];
+    const faqs = faqData.map((f, i) => ({
+      q: f.q, a: f.a,
+      open: this.state.openFaq === i,
+      sign: this.state.openFaq === i ? '−' : '+',
+      onClick: () => this.setState({ openFaq: this.state.openFaq === i ? -1 : i }),
+    }));
+
+    return {
+      heroHasVideo: !!this.state.heroVideoUrl,
+      heroShowDrive: !this.state.heroVideoUrl,
+      heroVideoUrl: this.state.heroVideoUrl,
+      onHeroFile: this.onHeroFile,
+      cities,
+      purposes,
+      purposeBlurb: current.blurb,
+      matched: current.matched,
+      shortPoints: ['방학·휴가를 활용한 집중 회화', '월드컵 시즌 현장 관전', '부담 없는 비용과 빠른 출국', '워홀 전 워밍업으로 최적'],
+      longPoints: ['정규 ESL 및 진학(Pathway) 연계', '장기 등록 할인으로 비용 효율', '워킹홀리데이 비자 병행', '확실한 실력 향상과 현지 적응'],
+      academicSupport: [
+        '어학연수 입학 상담 및 수속 지원',
+        '대학 · 대학원 지원 상담 및 수속 지원',
+        '조기유학 명문 사립 입학 상담 · 수속',
+        '조기유학 후 맞춤형 대학 진학 컨설팅',
+        '학교 변경 및 연장 상담 서비스',
+        '현지 대학 진학 세미나 안내',
+        '유 · 무급 인턴십 안내',
+        '1:1 튜터 소개',
+      ],
+      lifeSupport: [
+        '숙소 알선 및 관리 서비스',
+        '공항 픽업 및 정착 서비스',
+        '핸드폰 개설 · 은행 계좌 오픈 안내',
+        '인터넷 · 전기 신청 방법 안내',
+        '현지 문화 · 생활 정보 서비스',
+        '여행 정보 제공 및 여행사 소개',
+        '병원 이용 방법 안내',
+        '유학생 보험 정보 안내',
+      ],
+      steps: [
+        { num:'01', title:'무료 상담', desc:'목표·예산·기간을 함께 진단합니다.' },
+        { num:'02', title:'학교 · 도시 선정', desc:'나에게 맞는 맞춤 플랜을 설계합니다.' },
+        { num:'03', title:'입학 수속 · 비자', desc:'서류부터 비자까지 대행해 드립니다.' },
+        { num:'04', title:'항공 · 숙소', desc:'홈스테이·기숙사와 항공편을 연결합니다.' },
+        { num:'05', title:'출국 · 현지 정착', desc:'지사가 도착부터 끝까지 케어합니다.' },
+      ],
+      reviews: [
+        { quote:'"왕초보였는데, 밴쿠버에서 3개월 만에 말문이 트였어요."', name:'김O은', meta:'대학생 · 밴쿠버' },
+        { quote:'"토론토 어학연수가 바로 현지 워홀 취업까지 이어졌습니다."', name:'이O준', meta:'직장인 · 토론토' },
+        { quote:'"취준 공백을 뉴욕 연수로 채웠고, 영어 면접이 두렵지 않아요."', name:'박O희', meta:'취준생 · 뉴욕' },
+      ],
+      promos: [
+        { title:'수속비 면제', desc:'어학연수 등록 시 수속비를 면제해 드립니다.' },
+        { title:'어학원 장학 혜택', desc:'제휴 어학원의 장학·할인 혜택을 안내합니다.' },
+        { title:'원어민 회화 지원', desc:'출국 전 원어민 회화 수업으로 미리 준비합니다.' },
+        { title:'출국 준비 Kit', desc:'현지 생활에 필요한 출국 Kit를 증정합니다.' },
+        { title:'비자 수속 대행', desc:'복잡한 비자 절차를 전문가가 대행합니다.' },
+        { title:'시즌 도시 우선 배정', desc:'월드컵 시즌 인기 도시를 우선 배정해 드립니다.' },
+      ],
+      faqs,
+      videos: [
+        { src:'https://www.youtube-nocookie.com/embed/9zf4IA-2tok?rel=0&playsinline=1' },
+        { src:'https://www.youtube-nocookie.com/embed/QJzNPa_UOf4?rel=0&playsinline=1' },
+        { src:'https://www.youtube-nocookie.com/embed/AeU_wAjW7iU?rel=0&playsinline=1' },
+      ],
+      branches: [
+        { city:'뉴욕', en:'New York', wcHost:true, address:'430 Park Ave South, New York NY 10016', phone:'1-917-995-8092', email:'ny@coei.com', kakao:'coei_ny', href:'https://www.coei.com/info/branches/international.php?BranchNo=41' },
+        { city:'밴쿠버', en:'Vancouver', wcHost:true, href:'https://www.coei.com/info/branches/international.php' },
+        { city:'토론토', en:'Toronto', wcHost:true, href:'https://www.coei.com/info/branches/international.php' },
+        { city:'샌프란시스코', en:'San Francisco', wcHost:true, href:'https://www.coei.com/info/branches/international.php' },
+      ],
+    };
+  }
+}
+</script>
+</body>
+</html>
