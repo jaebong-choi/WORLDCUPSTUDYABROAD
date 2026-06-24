@@ -1,0 +1,21 @@
+/* ===========================================================================
+   FONTS — SF Pro is Apple's proprietary system font.
+   Primary stack resolves to the REAL SF Pro on macOS / iOS / Safari via
+   system-ui / -apple-system. Inter (Google Fonts) is the cross-platform
+   webfont fallback the design analysis recommends — flagged as a substitute.
+   =========================================================================== */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+:root {
+  /* The "Display" face — used at >= 19px (headlines). On Apple platforms this
+     resolves to SF Pro Display; elsewhere it falls back to Inter. */
+  --font-display: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Display", "Inter", sans-serif;
+
+  /* The "Text" face — used below 20px (body, captions, buttons, links).
+     Resolves to SF Pro Text on Apple platforms; Inter elsewhere. */
+  --font-text: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Inter", sans-serif;
+
+  /* Inter benefits from ss03 to approximate SF Pro's rounded "a". */
+  --font-feature-apple: "ss03" 1;
+}

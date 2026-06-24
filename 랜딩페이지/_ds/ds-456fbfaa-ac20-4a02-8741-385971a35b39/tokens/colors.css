@@ -1,0 +1,63 @@
+/* ===========================================================================
+   COLORS — Apple's web color system.
+   Single brand accent (Action Blue). Surfaces alternate white / parchment /
+   near-black tiles. One near-black ink for all light-surface text.
+   No decorative gradients exist in this system.
+   =========================================================================== */
+
+:root {
+  /* ---- Brand & Accent ------------------------------------------------- */
+  --blue-action:        #0066cc; /* the single interactive color */
+  --blue-focus:         #0071e3; /* keyboard focus ring (slightly brighter) */
+  --blue-on-dark:       #2997ff; /* links on dark tiles (Action Blue vanishes) */
+
+  /* ---- Surfaces ------------------------------------------------------- */
+  --white:              #ffffff; /* dominant canvas */
+  --parchment:          #f5f5f7; /* signature Apple off-white */
+  --pearl:              #fafafc; /* ghost-button fill (reads as button on parchment) */
+  --tile-dark-1:        #272729; /* primary dark tile */
+  --tile-dark-2:        #2a2a2c; /* micro-step lighter */
+  --tile-dark-3:        #252527; /* micro-step darker / player frames */
+  --black:              #000000; /* global nav, true void, video */
+  --chip-translucent:   #d2d2d7; /* base of translucent control chip */
+
+  /* ---- Text ----------------------------------------------------------- */
+  --ink:                #1d1d1f; /* near-black — all headlines + body on light */
+  --ink-on-dark:        #ffffff; /* text on dark tiles + global nav */
+  --ink-muted-dark:     #cccccc; /* secondary copy on dark tiles */
+  --ink-muted-80:       #333333; /* body on pearl button */
+  --ink-muted-48:       #7a7a7a; /* disabled text, legal fine-print */
+
+  /* ---- Hairlines & Borders ------------------------------------------- */
+  --divider-soft:       #f0f0f0; /* secondary-button ring (soft, not a line) */
+  --hairline:           #e0e0e0; /* 1px border on utility cards / chips */
+  --hairline-alpha:     rgba(0, 0, 0, 0.08); /* hairline as alpha (inputs) */
+
+  /* ---- On-color ------------------------------------------------------- */
+  --on-blue:            #ffffff;
+
+  /* =====================================================================
+     SEMANTIC ALIASES — prefer these in components.
+     ===================================================================== */
+  --accent:             var(--blue-action);
+  --accent-focus:       var(--blue-focus);
+  --accent-on-dark:     var(--blue-on-dark);
+
+  --surface-canvas:     var(--white);
+  --surface-alt:        var(--parchment);
+  --surface-card:       var(--white);
+  --surface-ghost:      var(--pearl);
+  --surface-dark:       var(--tile-dark-1);
+  --surface-nav:        var(--black);
+
+  --text-primary:       var(--ink);
+  --text-on-dark:       var(--ink-on-dark);
+  --text-muted:         var(--ink-muted-48);
+  --text-muted-dark:    var(--ink-muted-dark);
+  --text-link:          var(--blue-action);
+  --text-link-on-dark:  var(--blue-on-dark);
+
+  --border-card:        var(--hairline);
+  --border-input:       var(--hairline-alpha);
+  --border-divider:     var(--divider-soft);
+}

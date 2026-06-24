@@ -1,0 +1,14 @@
+/* ===========================================================================
+   RADIUS — strict grammar. Compact utility = sm(8). Utility cards = lg(18).
+   Pills = the brand "action" signal. Rare md(11) for Pearl buttons. No in-between.
+   =========================================================================== */
+
+:root {
+  --radius-none: 0px;     /* full-bleed tiles — color change is the divider */
+  --radius-xs:   5px;     /* subtle inline chips (rare) */
+  --radius-sm:   8px;     /* dark utility buttons, inline card imagery */
+  --radius-md:   11px;    /* Pearl button capsules */
+  --radius-lg:   18px;    /* store / accessory utility cards */
+  --radius-pill: 9999px;  /* primary CTAs, search, chips — the signature pill */
+  --radius-full: 9999px;  /* circular control chips over photography */
+}

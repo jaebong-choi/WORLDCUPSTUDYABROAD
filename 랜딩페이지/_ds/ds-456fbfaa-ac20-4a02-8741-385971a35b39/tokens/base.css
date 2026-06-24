@@ -1,0 +1,35 @@
+/* ===========================================================================
+   BASE — minimal resets + the brand's default voice. Light on purpose.
+   =========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font: var(--text-body);
+  letter-spacing: var(--ls-body);
+  font-feature-settings: var(--font-feature-apple);
+  color: var(--text-primary);
+  background: var(--surface-canvas);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: var(--text-link);
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Headlines carry the "Apple tight" negative tracking by default. */
+h1, h2, h3 {
+  letter-spacing: var(--ls-display);
+  margin: 0;
+}

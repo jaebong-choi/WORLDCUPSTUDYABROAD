@@ -1,0 +1,20 @@
+/* ===========================================================================
+   ELEVATION — Apple uses exactly ONE drop-shadow, reserved for product
+   photography resting on a surface. UI elevation comes from surface-color
+   change and backdrop-blur, NEVER from shadows on cards / buttons / text.
+   =========================================================================== */
+
+:root {
+  /* The single shadow in the entire system — product renders only. */
+  --shadow-product: rgba(0, 0, 0, 0.22) 3px 5px 30px 0;
+
+  /* Soft hairline "ring" — not a hard line; used on utility cards. */
+  --ring-hairline: 0 0 0 1px rgba(0, 0, 0, 0.08);
+
+  /* Frosted-glass treatment for sticky bars / sub-nav. Apply over a
+     parchment-at-80% background. */
+  --blur-frosted: saturate(180%) blur(20px); /* @kind other */
+
+  /* System-wide press micro-interaction. */
+  --press-scale: scale(0.95); /* @kind other */
+}

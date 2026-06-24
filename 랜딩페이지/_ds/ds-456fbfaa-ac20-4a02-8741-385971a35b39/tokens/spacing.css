@@ -1,0 +1,22 @@
+/* ===========================================================================
+   SPACING — 8px base unit. Sub-base values (4) for tight typographic nudges;
+   structural layout snaps to 8 / 12 / 17 / 24 / 32 / 48. Section padding 80px.
+   =========================================================================== */
+
+:root {
+  --space-xxs:     4px;
+  --space-xs:      8px;
+  --space-sm:      12px;
+  --space-md:      17px;
+  --space-lg:      24px;
+  --space-xl:      32px;
+  --space-xxl:     48px;
+  --space-section: 80px;  /* vertical padding inside a product tile */
+
+  /* ---- Layout constants ---------------------------------------------- */
+  --content-text:  980px;  /* text-heavy max width */
+  --content-grid:  1440px; /* product-grid max width */
+  --card-gutter:   24px;   /* gap between utility cards */
+  --nav-height:    44px;   /* global nav */
+  --subnav-height: 52px;   /* frosted sub-nav */
+}
