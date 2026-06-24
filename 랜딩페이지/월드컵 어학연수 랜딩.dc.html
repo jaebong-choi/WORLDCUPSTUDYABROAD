@@ -23,6 +23,34 @@
   body { margin: 0; background: var(--white); color: var(--ink); font-family: var(--font-text), -apple-system, sans-serif; }
   * { box-sizing: border-box; }
   @keyframes heroVideoFade { 0% { opacity: 0.18; filter: blur(4px); } 50% { opacity: 0.5; filter: blur(2px); } 100% { opacity: 0.18; filter: blur(4px); } }
+
+  /* ===== 모바일 반응형 (≤768px). 데스크톱은 영향 없음 ===== */
+  @media (max-width: 768px) {
+    /* 헤더: 로고 축소, 가운데 메뉴 링크는 숨기고 로고+상담 버튼만 */
+    nav { gap: 12px !important; height: 56px !important; justify-content: space-between !important; }
+    nav > a:first-child img { height: 34px !important; }
+    nav > div { display: none !important; }
+
+    /* 섹션 상하 여백 축소 */
+    section { padding-top: 60px !important; padding-bottom: 60px !important; }
+
+    /* 히어로: 상하 여백·제목 크기 조정 */
+    #top { min-height: 78vh !important; padding-top: 90px !important; padding-bottom: 72px !important; }
+    #top h1 { font-size: clamp(32px, 9vw, 44px) !important; }
+    #top p { font-size: clamp(16px, 4.4vw, 19px) !important; }
+
+    /* 지사 카드: 고정 폭/높이 해제 → 화면 폭에 맞춤 */
+    #branches a { width: 100% !important; height: auto !important; }
+
+    /* 푸터 여백 살짝 축소 */
+    footer { padding-top: 40px !important; padding-bottom: 40px !important; }
+  }
+
+  /* 아주 좁은 화면 (≤380px) 여백 추가 보정 */
+  @media (max-width: 380px) {
+    nav { padding-left: 14px !important; padding-right: 14px !important; }
+    section, footer { padding-left: 16px !important; padding-right: 16px !important; }
+  }
 </style>
 </helmet>
 
