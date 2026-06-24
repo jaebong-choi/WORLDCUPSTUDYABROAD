@@ -516,5 +516,40 @@ class Component extends DCLogic {
   }
 }
 </script>
+<script>
+// 히어로 배경 영상 자동재생 보강 (브라우저 자동재생 정책 대응)
+(function () {
+  function kick() {
+    var v = document.querySelector('#top video');
+    if (!v) return;
+    v.muted = true; v.defaultMuted = true;
+    v.setAttribute('muted', '');
+    v.playsInline = true;
+    var p = v.play();
+    if (p && p.catch) p.catch(function () {});
+  }
+  function ready() {
+    kick();
+    // 첫 프레임에서 멈추는 경우 대비: 로드/사용자 상호작용/탭 복귀 시 재시도
+    var v = document.querySelector('#top video');
+    if (v) {
+      v.addEventListener('loadeddata', kick);
+      v.addEventListener('canplay', kick);
+    }
+    document.addEventListener('visibilitychange', function () {
+      if (!document.hidden) kick();
+    });
+    ['click', 'touchstart', 'scroll', 'keydown'].forEach(function (ev) {
+      window.addEventListener(ev, kick, { once: true, passive: true });
+    });
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', ready);
+  } else {
+    ready();
+  }
+  window.addEventListener('load', kick);
+})();
+</script>
 </body>
 </html>
