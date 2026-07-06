@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>edm유학센터 호주 대학교 진학 AI 컨설팅</title>
+    
+    <!-- Google Fonts: Inter & JetBrains Mono (Cursor Gothic Substitutes) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;700&family=Noto+Sans+KR:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js" crossorigin="anonymous"></script>
+
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'cursor-orange': '#f54e00',      /* Brand Accent Key */
+                        'cursor-orange-active': '#d04200',
+                        'cursor-ink': '#26251e',         /* Warm Dark Gray Ink */
+                        'cursor-body': '#5a5852',        /* Quiet Gray */
+                        'cursor-hairline': '#e6e5e0',    /* Precision 1px Border */
+                        'cursor-hairline-strong': '#cfcdc4',
+                        'cursor-canvas': '#f7f7f4',      /* Warm Cream Canvas */
+                        'cursor-canvas-soft': '#fafaf7',
+                        'cursor-white': '#ffffff',
+                        
+                        /* AI Timeline Signature Pastel Colors */
+                        'timeline-thinking': '#dfa88f',  /* Peach */
+                        'timeline-grep': '#9fc9a2',      /* Mint */
+                        'timeline-read': '#9fbbe0',      /* Pastel Blue */
+                        'timeline-edit': '#c0a8dd',      /* Lavender */
+                        'timeline-done': '#c08532',      /* Warm Gold */
+                    },
+                    fontFamily: {
+                        sans: ['"Inter"', '"Noto Sans KR"', 'sans-serif'],
+                        mono: ['"JetBrains Mono"', 'monospace'],
+                    }
+                }
+            }
+        }
+    </script>
+    
+    <style>
+        body {
+            background-color: #f7f7f4; /* Warm cream canvas */
+            color: #5a5852; /* Soft editorial body */
+            font-family: 'Inter', 'Noto Sans KR', sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* Cursor Gothic substitutes with negative letter-spacing for display */
+        .display-mega {
+            font-size: 4.5rem; /* 72px */
+            font-weight: 400;
+            line-height: 1.1;
+            letter-spacing: -2.16px;
+            color: #26251e;
+        }
+        .display-lg {
+            font-size: 2.25rem; /* 36px */
+            font-weight: 400;
+            line-height: 1.2;
+            letter-spacing: -0.72px;
+            color: #26251e;
+        }
+        .display-md {
+            font-size: 1.625rem; /* 26px */
+            font-weight: 400;
+            line-height: 1.25;
+            letter-spacing: -0.325px;
+            color: #26251e;
+        }
+        .display-sm {
+            font-size: 1.375rem; /* 22px */
+            font-weight: 400;
+            line-height: 1.3;
+            letter-spacing: -0.11px;
+            color: #26251e;
+        }
+
+        @media (max-width: 768px) {
+            .display-mega { font-size: 2.25rem; letter-spacing: -1px; }
+            .display-lg { font-size: 1.75rem; }
+            .display-md { font-size: 1.375rem; }
+        }
+
+        /* Custom buttons styling conforming to Cursor layout guidelines */
+        .btn-primary {
+            background-color: #f54e00; /* Cursor Orange */
+            color: #ffffff;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 8px;
+            padding: 10px 18px;
+            transition: background-color 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-primary:hover { background-color: #d04200; }
+        
+        .btn-secondary {
+            background-color: #ffffff;
+            color: #26251e;
+            border: 1px solid #cfcdc4;
+            font-size: 0.875rem;
+            font-weight: 500;
+            border-radius: 8px;
+            padding: 9px 17px;
+            transition: background-color 0.15s ease, border-color 0.15s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .btn-secondary:hover {
+            background-color: #fafaf7;
+            border-color: #26251e;
+        }
+
+        /* Custom hairline rules instead of shadows for clean editorial appearance */
+        .hairline-card {
+            background-color: #ffffff;
+            border: 1px solid #e6e5e0;
+            border-radius: 12px;
+            transition: border-color 0.25s ease;
+        }
+        .hairline-card:hover {
+            border-color: #cfcdc4;
+        }
+
+        /* Markdown report styles */
+        .report-body h2 {
+            font-size: 1.5rem;
+            font-weight: 400;
+            color: #26251e;
+            letter-spacing: -0.325px;
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+            border-bottom: 1px solid #e6e5e0;
+            padding-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+        }
+        .report-body h3 {
+            font-size: 1.125rem;
+            font-weight: 600;
+            color: #26251e;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+        }
+        .report-body p {
+            margin-bottom: 1.25rem;
+            line-height: 1.6;
+            color: #5a5852;
+        }
+        .report-body ul {
+            margin-bottom: 1.5rem;
+        }
+        .report-body li {
+            position: relative;
+            padding-left: 1.5rem;
+            margin-bottom: 0.50rem;
+            color: #5a5852;
+            line-height: 1.5;
+        }
+        .report-body li::before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #f54e00;
+            font-weight: 600;
+        }
+        .report-body table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 1rem;
+            margin-bottom: 2rem;
+            font-size: 0.90rem;
+        }
+        .report-body th, .report-body td {
+            border-bottom: 1px solid #e6e5e0;
+            padding: 1rem;
+            text-align: left;
+        }
+        .report-body th {
+            background-color: #fafaf7;
+            font-weight: 600;
+            color: #26251e;
+            border-top: 1px solid #e6e5e0;
+        }
+        .report-body tr:hover {
+            background-color: #fafaf7;
+        }
+    </style>
+</head>
+<body class="flex flex-col h-screen overflow-hidden">
+
+    <header class="bg-cursor-canvas border-b border-cursor-hairline sticky top-0 z-50 h-16 flex items-center">
+        <div class="max-w-[1200px] mx-auto w-full px-6 flex justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="https://s3.ap-northeast-2.amazonaws.com/img.edmuhak.com/uhak/renewal/common/edmuhak_logo.svg" alt="edm유학센터" class="h-6">
+                <span class="hidden sm:inline-block h-4 w-px bg-cursor-hairline"></span>
+                <span class="hidden sm:inline-block text-xs font-mono uppercase tracking-widest text-cursor-body">Australia AI Pathway</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <a href="https://www.edmuhak.com/inquiry/quote" target="_blank" class="btn-primary text-xs flex items-center gap-1.5">
+                    <i class="fa-solid fa-calendar-check text-xs"></i> 1:1 방문 상담 신청
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main class="flex-1 overflow-hidden relative max-w-[1200px] w-full mx-auto flex flex-col md:my-6 md:rounded-xl md:border border-cursor-hairline bg-cursor-canvas-soft">
+        
+        <!-- Interactive Consultation Screen -->
+        <div id="chat-container" class="flex-1 flex flex-col overflow-hidden" style="display: flex;">
+            
+            <!-- Agent State Status Bar -->
+            <div class="bg-white border-b border-cursor-hairline py-3 px-6 flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full bg-cursor-orange animate-pulse"></span>
+                    <span class="text-xs font-mono uppercase tracking-wider text-cursor-ink">edm AI Agent Online</span>
+                </div>
+                <div class="text-xs text-cursor-body font-mono">
+                    Session ID: AU-2026-7
+                </div>
+            </div>
+
+            <!-- Chat History Area -->
+            <div id="chat-history" class="flex-1 overflow-y-auto p-6 md:p-12 space-y-8">
+                
+                <!-- Initial Welcome Message (AI) -->
+                <div class="flex gap-4 max-w-4xl fade-in">
+                    <div class="w-10 h-10 rounded-lg bg-cursor-ink flex items-center justify-center text-cursor-canvas shrink-0 border border-cursor-hairline">
+                        <i class="fa-solid fa-user-astronaut text-sm"></i>
+                    </div>
+                    <div class="bg-white border border-cursor-hairline rounded-xl p-5 text-sm md:text-base leading-relaxed text-cursor-ink">
+                        <p class="font-mono text-xs uppercase tracking-wider text-cursor-orange mb-1">Introduction</p>
+                        안녕하세요! <strong>edm유학센터 (edm education)</strong>의 호주 진학 수석 AI 컨설턴트입니다.<br><br>
+                        호주는 높은 임금과 수월한 정착 혜택(졸업생 비자) 및 영주권 취득 옵션 덕분에 최고의 글로벌 커리어 기회를 제공합니다.<br><br>
+                        학생분의 고교 성적, 공인 영어 점수, 희망 전공을 정밀하게 분석하여 **2026-27년 입학 요건**에 맞춘 최적의 **패스웨이(파운데이션 / 디플로마 / 학사 편입 및 직행)** 경로를 설계해 드리겠습니다. 아래 버튼을 눌러 시작해 주세요!
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Action Selector Block -->
+            <div id="input-area" class="bg-white border-t border-cursor-hairline p-6 md:p-8">
+                <div id="options-container" class="max-w-4xl mx-auto flex flex-wrap gap-3 justify-center">
+                    <button onclick="startQuestions()" class="w-full sm:w-auto btn-primary text-base px-8 py-3.5 flex items-center justify-center gap-2">
+                        호주 유학 AI 진단 시작하기 <i class="fa-solid fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- Simulation Loading Panel -->
+        <div id="loader-container" class="hidden flex-1 flex flex-col items-center justify-center p-8 bg-cursor-canvas">
+            <div class="max-w-md w-full text-center space-y-6">
+                <!-- Code Style Spinner Box -->
+                <div class="border border-cursor-hairline bg-white rounded-xl p-6 font-mono text-left shadow-sm">
+                    <div class="flex items-center justify-between border-b border-cursor-hairline pb-2 mb-4 text-xs text-cursor-body">
+                        <span>AGENT_PROCESSOR.EXE</span>
+                        <span>v1.0.8</span>
+                    </div>
+                    <div class="space-y-3 text-sm">
+                        <div id="timeline-step-1" class="flex items-center gap-3 opacity-30">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-timeline-thinking text-cursor-ink uppercase tracking-wider">Thinking</span>
+                            <span class="text-cursor-ink">영어 성적 및 조건 매칭 검토</span>
+                        </div>
+                        <div id="timeline-step-2" class="flex items-center gap-3 opacity-30">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-timeline-grep text-cursor-ink uppercase tracking-wider">Grepping</span>
+                            <span class="text-cursor-ink">호주 G8 및 특화 명문대 DB 필터링</span>
+                        </div>
+                        <div id="timeline-step-3" class="flex items-center gap-3 opacity-30">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-timeline-read text-cursor-ink uppercase tracking-wider">Reading</span>
+                            <span class="text-cursor-ink">2026-27년 입학 정원 및 요건 확인</span>
+                        </div>
+                        <div id="timeline-step-4" class="flex items-center gap-3 opacity-30">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-timeline-edit text-cursor-ink uppercase tracking-wider">Editing</span>
+                            <span class="text-cursor-ink">학위 취득 최단기간 Pathway 편집</span>
+                        </div>
+                        <div id="timeline-step-5" class="flex items-center gap-3 opacity-30">
+                            <span class="px-2 py-0.5 rounded-full text-[10px] font-bold bg-timeline-done text-white uppercase tracking-wider">Done</span>
+                            <span class="text-cursor-ink">최종 에디토리얼 진학 리포트 빌드</span>
+                        </div>
+                    </div>
+                </div>
+                <p class="text-xs text-cursor-body font-mono animate-pulse">호주 대학 전형 시스템 매칭률 계산 중...</p>
+            </div>
+        </div>
+
+        <!-- Result Report Screen -->
+        <div id="result-container" class="hidden flex-1 overflow-y-auto bg-cursor-canvas relative">
+            
+            <!-- Result Operations Bar -->
+            <div class="sticky top-0 bg-white/90 backdrop-blur-sm border-b border-cursor-hairline p-4 flex justify-between items-center z-40">
+                <div class="flex items-center gap-2">
+                    <img src="https://s3.ap-northeast-2.amazonaws.com/img.edmuhak.com/uhak/renewal/common/edmuhak_logo.svg" alt="edm유학센터" class="h-4">
+                    <span class="text-xs font-mono uppercase text-cursor-orange">Consolidated Report</span>
+                </div>
+                <div class="flex gap-2">
+                    <button onclick="downloadPDF()" class="btn-primary text-xs py-1.5 px-3 flex items-center gap-1">
+                        <i class="fa-solid fa-file-pdf"></i> PDF 저장
+                    </button>
+                    <button onclick="resetConsultation()" class="btn-secondary text-xs py-1.5 px-3">
+                        <i class="fa-solid fa-rotate-left"></i> 재진단
+                    </button>
+                </div>
+            </div>
+
+            <!-- PDF Container Area -->
+            <div id="report-print-area" class="p-6 md:p-12 max-w-4xl mx-auto bg-white border border-cursor-hairline my-6 md:my-10 rounded-xl">
+                <div id="result-content" class="report-body">
+                    <!-- Dynamic details are loaded here via JavaScript -->
+                </div>
+            </div>
+
+            <!-- Bottom Brand Band (Quietly confident pre-footer) -->
+            <div class="bg-white border-t border-cursor-hairline py-12 px-6 text-center">
+                <h3 class="display-sm text-cursor-ink mb-2">실력으로 입증하는 16년 연속 1위 edm유학센터</h3>
+                <p class="text-sm text-cursor-body mb-8 max-w-xl mx-auto">
+                    수많은 명문 호주 대학교가 edm유학센터를 공식 파트너로 선택했습니다. 상세 학비 혜택과 비자 발급, 출국 전 무료 사전 준비 강좌까지 원스톱으로 누려보세요.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-3">
+                    <a href="tel:1833-2341" class="btn-secondary flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-phone"></i> 대표번호 1833-2341
+                    </a>
+                    <a href="https://www.edmuhak.com/inquiry/quote" target="_blank" class="btn-primary flex items-center justify-center gap-2">
+                        방문 예약 신청서 작성 <i class="fa-solid fa-chevron-right text-xs"></i>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+
+    </main>
+
+    <script>
+        // Data Structures for 2026-27 Australian Universities Criteria
+        const targetMajorsData = {
+            "간호학과 (Nursing)": {
+                desc: "호주 내 영주권 발급 수가 가장 압도적인 1위 직업군. 한국의 학업 부담 대비 근무 환경이 월등히 탁월하며, 3년제 학사를 수료하고 IELTS 7.0 수준 취득 시 현지 공인간호사(RN) 면허를 곧바로 취득합니다.",
+                schools: [
+                    { name: "Griffith University (그리피스 대학교)", location: "골드코스트/브리즈번", degree: "Bachelor of Nursing", rank: "호주 보건계열 최상위 명성", req: "수능 CSAT 317점 또는 디플로마 연계", ielts: "7.0 (each 7.0)", tuition: "AUD $41,000", url: "https://www.griffith.edu.au/study/nursing" },
+                    { name: "University of Technology Sydney (시드니 공과대학교 - UTS)", location: "시드니", degree: "Bachelor of Nursing", rank: "호주 실무형 보건학 최선두", req: "수능 CSAT 300점 또는 디플로마 연계", ielts: "7.0 (each 7.0)", tuition: "AUD $48,500", url: "https://www.uts.edu.au/study/health/nursing" },
+                    { name: "Monash University (모나쉬 대학교)", location: "멜버른", degree: "Bachelor of Nursing", rank: "호주 명문 G8 (Group of Eight) 대학", req: "수능 CSAT 310점 또는 파운데이션", ielts: "7.0 (each 7.0)", tuition: "AUD $43,500", url: "https://www.monash.edu/medicine/nursing" }
+                ],
+                ytId: "vMaJMRTlJ80",
+                ytTitle: "시드니 현실 어학연수&유학원 수속 검증 가이드",
+                advice: "간호학과는 고교 6등급 이하나 수능 점수가 약해도 연계 디플로마(Diploma) 과정을 통해 본과 2학년으로 안전하게 편입할 수 있습니다. 다만, 졸업 시 영어 조건(IELTS 7.0 / PTE 65) 충족이 필수이므로 정교한 플래닝이 동반되어야 합니다."
+            },
+            "약학/약대 (Pharmacy)": {
+                desc: "호주 약학 학·석사 통합 과정을 졸업하고 면허를 취득하면, 한국 보건복지부 인정을 받아 한국 약사 국가 시험 자격을 바로 취득할 수 있습니다. 국내 약대 경쟁보다 입학 진입장벽이 훨씬 수월합니다.",
+                schools: [
+                    { name: "University of Sydney (시드니 대학교)", location: "시드니", degree: "Bachelor of Pharmacy (Honours) / Master of Pharmacy", rank: "QS 세계 20위권 약대", req: "수능 CSAT 346점 이상 (다이렉트)", ielts: "6.5 (each 6.0)", tuition: "AUD $60,500", url: "https://www.sydney.edu.au/medicine-health/schools/sydney-pharmacy-school.html" },
+                    { name: "Monash University (모나쉬 대학교)", location: "멜버른", degree: "Bachelor of Pharmacy (Honours) / Master of Pharmacy", rank: "QS 세계 2위 (글로벌 최상위)", req: "수능 CSAT 350점 이상 (수학/화학 선수조건)", ielts: "6.5 (each 6.0)", tuition: "AUD $56,700", url: "https://www.monash.edu/pharm" },
+                    { name: "Griffith University (그리피스 대학교)", location: "골드코스트", degree: "Bachelor of Pharmacy (Honours)", rank: "실무 중심 연구 성과 최고", req: "수능 CSAT 331점 또는 디플로마 진입", ielts: "7.0 (each 6.5)", tuition: "AUD $42,600", url: "https://www.griffith.edu.au/study/pharmacy" }
+                ],
+                ytId: "QLECrVPfQaQ",
+                ytTitle: "멜버른 어학연수 브이로그 & 호주 리얼 라이프",
+                advice: "모나쉬 및 시드니 약대는 5년 통합 과정으로 획기적인 기간 내에 취득이 가능합니다. 다이렉트 학력 조건에 미달한다면 파운데이션 과정을 먼저 수료한 뒤 본교 약대 1학년으로 올라가는 것이 정설입니다."
+            },
+            "IT 및 사이버보안 (IT/Cyber Security)": {
+                desc: "4차 산업의 핵심 전공이자 영주권 유망 카테고리. 호주 IT 학사는 3년제 과정으로 이루어져 학비와 생활비를 대폭 보존할 수 있으며, ACS 기술 심사를 통과하여 현지 정착이 대단히 유리합니다.",
+                schools: [
+                    { name: "University of Technology Sydney (시드니 공과대학교 - UTS)", location: "시드니", degree: "Bachelor of Science in Information Technology", rank: "IT 실무/인프라 성장도 호주 1위", req: "수능 조건 또는 디플로마 연계", ielts: "6.5 (each 6.0)", tuition: "AUD $52,000", url: "https://www.uts.edu.au/study/information-technology" },
+                    { name: "Monash University (모나쉬 대학교)", location: "멜버른", degree: "Bachelor of Information Technology", rank: "G8 중 IT 혁신 리딩 캠퍼스", req: "수능 310점 또는 디플로마(멜버른 부설)", ielts: "6.5 (each 6.0)", tuition: "AUD $51,800", url: "https://www.monash.edu/it" },
+                    { name: "Griffith University (그리피스 대학교)", location: "브리즈번/골드코스트", degree: "Bachelor of Information Technology", rank: "산학 매칭 및 기업 연계 취업 우수", req: "수능 280점 또는 내신 6등급 디플로마", ielts: "6.5 (each 6.0)", tuition: "AUD $38,500", url: "https://www.griffith.edu.au/study/information-technology" }
+                ],
+                ytId: "vMaJMRTlJ80",
+                ytTitle: "호주 유학 준비 가이드 - 출국 전 꼭 봐야 할 기본 비용",
+                advice: "호주 내 다수 대학교에서 전공과 일치하는 디플로마 과정을 폭넓게 지원하므로, 상대적으로 낮은 고교 성적으로도 세계 탑급 대학의 IT 학사를 취득할 수 있습니다."
+            },
+            "공학/엔지니어링 (Engineering)": {
+                desc: "호주 연방정부 장기 인력 부족 직업군(토목, 전기, 광산, 환경)에 완벽하게 해당되는 평생직장 코스. 워라밸 보장 및 고연봉 기반의 기술이민을 위한 지름길입니다.",
+                schools: [
+                    { name: "UNSW (뉴사우스웨일스 대학교)", location: "시드니", degree: "Bachelor of Engineering (Honours)", rank: "호주 최고 공과대학 및 G8 최고 랭킹", req: "수능 높은 표준점수 또는 UNSW 글로벌 파운데이션", ielts: "6.5 (each 6.0)", tuition: "AUD $55,000", url: "https://www.unsw.edu.au/engineering" },
+                    { name: "University of Sydney (시드니 대학교)", location: "시드니", degree: "Bachelor of Engineering Honours", rank: "Go8 리서치 중심 명문", req: "수능 조건 또는 시드니 글로벌 파운데이션", ielts: "6.5 (each 6.0)", tuition: "AUD $58,000", url: "https://www.sydney.edu.au/engineering/" },
+                    { name: "Queensland University of Technology (QUT)", location: "브리즈번", degree: "Bachelor of Engineering (Honours)", rank: "실무 집중 교육 인지도 최고", req: "수능 또는 디플로마 연계 편입", ielts: "6.5 (each 6.0)", tuition: "AUD $44,000", url: "https://www.qut.edu.au/study/engineering" }
+                ],
+                ytId: "QLECrVPfQaQ",
+                ytTitle: "호주 브리즈번/멜버른 유학 생활 안내",
+                advice: "호주의 공과대학 학사는 기본 4년(명예학사 포함) 체계입니다. 수학 및 물리 조건의 선행 지식이 강하게 평가되므로 고교 때 수학 성적이 저조하다면 '파운데이션'을 통해 실력을 메우고 진학하기를 정식으로 권합니다."
+            },
+            "의대/의전원 (Medicine)": {
+                desc: "높은 연봉과 선망받는 명예 전문직. 한국 수능 점수로 직접 신입학 전형 도전에 참여가 가능합니다. 적성 고사인 ISAT/UCAT 대비와 엄격한 영문 인터뷰 통과가 병행되는 전문적인 코스입니다.",
+                schools: [
+                    { name: "University of Sydney (시드니 대학교)", location: "시드니", degree: "Bachelor of Science and Doctor of Medicine", rank: "7년 학·석사 통합 (최정상급)", req: "CSAT 393 이상 (ISAT 면제, 인터뷰 必)", ielts: "7.0 (each 7.0)", tuition: "AUD $95,000", url: "https://www.sydney.edu.au/medicine-health/" },
+                    { name: "Western Sydney University (WSU)", location: "시드니", degree: "Doctor of Medicine", rank: "5년제 단기 취득 과정 특화", req: "CSAT 370 이상 & ISAT & 인터뷰", ielts: "7.0 (each 7.0)", tuition: "AUD $82,000", url: "https://www.westernsydney.edu.au/schools/som" },
+                    { name: "Monash University (모나쉬 대학교)", location: "멜버른", degree: "Bachelor of Medical Science and Doctor of Medicine", rank: "G8 중 최고 경쟁력의 5년제 의과", req: "CSAT 380 이상 & ISAT & 인터뷰", ielts: "7.0 (each 7.0)", tuition: "AUD $92,000", url: "https://www.monash.edu/medicine" }
+                ],
+                ytId: "vMaJMRTlJ80",
+                ytTitle: "호주 영주권 가치와 주요 유학 비용",
+                advice: "다이렉트 의대 지원 요건을 맞추기 버거운 일반 한국 고교 출신 학생들의 경우, 보다 합리적인 Biomedical Science(의생명과학, 3년) 학과를 선행 통과한 후 의전원(Doctor of Medicine, 4년)에 진입하는 편안한 투스텝 제도가 최적입니다."
+            },
+            "호텔경영학 (Hospitality Management)": {
+                desc: "세계에서 가장 아름다운 자연 관광 대국 호주. 단순 경영 이론을 뛰어넘어, 재학 중 글로벌 럭셔리 호텔 체인에서의 유급 인턴십 기회(연간 최대 약 4천만 원 수익)가 정식 과목으로 수용되어 있습니다.",
+                schools: [
+                    { name: "The Hotel School (Southern Cross University - SCU)", location: "시드니/멜버른/브리즈번", degree: "Bachelor of Business in Hotel Management", rank: "호주 내 최고 인지도 호텔 스쿨", req: "고등학교 졸업 (내신/검정고시 무관 패키지)", ielts: "6.0 (each 6.0)", tuition: "AUD $34,500", url: "https://hotelschool.scu.edu.au/" },
+                    { name: "Griffith University (그리피스 대학교)", location: "브리즈번/골드코스트", degree: "Bachelor of International Tourism and Hotel Management", rank: "호주 전통 호텔경영 1위 대학교", req: "수능 CSAT 317점 또는 디플로마(내신 6등급)", ielts: "6.5 (each 6.0)", tuition: "AUD $37,000", url: "https://www.griffith.edu.au/study/tourism-hospitality" }
+                ],
+                ytId: "QLECrVPfQaQ",
+                ytTitle: "호주 유학 준비 전반 및 현지 아르바이트 가이드",
+                advice: "더 호텔스쿨(SCU)의 경우, 다국적 리조트 그룹인 Mulpha 지분 산하의 전문 교육과정으로 수료 중 약 1년 3개월의 풍부한 실무 유급 인턴십이 확보됩니다. 실전적인 영어 회화 실력과 비즈니스 에티켓을 한 번에 가져갈 수 있습니다."
+            }
+        };
+
+        let currentStepIndex = 0;
+        let profileStore = {
+            english_type: "",
+            english: "",
+            grades: "",
+            major: "",
+            target: ""
+        };
+
+        const flowQuestions = [
+            {
+                key: "english_type",
+                question: "현재 준비하셨거나 응시를 계획하고 계신 영어 시험 종류를 선택해주세요.",
+                options: ["IELTS (아이엘츠)", "PTE (피어슨)", "TOEFL (토플)", "아직 정해진 공인 점수가 없습니다"]
+            },
+            {
+                key: "english", // Sub-question: will be filled dynamically in logic
+                question: "",
+                options: []
+            },
+            {
+                key: "grades",
+                question: "현재 보유하신 학업 상태와 가장 일치하는 성적 조건을 골라주세요.",
+                options: [
+                    "고교 우수 (1~3등급 또는 수능 330점 이상)",
+                    "고교 보통 (4~5등급 또는 수능 중간 수준)",
+                    "고교 기타 (6등급 이하 또는 검정고시 합격자)",
+                    "국내/해외 대학교 재학 또는 졸업생"
+                ]
+            },
+            {
+                key: "major",
+                question: "가장 진학을 원하시는 호주 대학교 전공 분야를 선택해주세요.",
+                options: Object.keys(targetMajorsData)
+            },
+            {
+                key: "target",
+                question: "이번 호주 진학 프로젝트에서 가장 가치를 두는 최우선 목표는 무엇인가요?",
+                options: [
+                    "호주 최정상 G8 (Group of Eight) 대학 학위 취득",
+                    "유학 이후 현지 고임금 직군 취업 및 영주권 확보",
+                    "학비 대비 높은 실용성과 신속한 취업 포커싱",
+                    "학업 마친 뒤 한국 복귀 후 국내 전문 라이센스 전환"
+                ]
+            }
+        ];
+
+        function addMessage(text, isUser = false) {
+            const chatHistory = document.getElementById('chat-history');
+            const msgDiv = document.createElement('div');
+            msgDiv.className = `flex gap-4 max-w-4xl fade-in ${isUser ? 'ml-auto flex-row-reverse' : ''}`;
+            
+            const icon = isUser 
+                ? `<div class="w-10 h-10 rounded-lg bg-white border border-cursor-hairline flex items-center justify-center text-cursor-body shrink-0"><i class="fa-solid fa-user"></i></div>`
+                : `<div class="w-10 h-10 rounded-lg bg-cursor-ink border border-cursor-hairline flex items-center justify-center text-cursor-canvas shrink-0"><i class="fa-solid fa-user-astronaut"></i></div>`;
+            
+            const bubbleBg = isUser 
+                ? 'bg-cursor-canvas border border-cursor-hairline text-cursor-ink' 
+                : 'bg-white border border-cursor-hairline text-cursor-ink';
+
+            msgDiv.innerHTML = `
+                ${icon}
+                <div class="${bubbleBg} rounded-xl p-5 text-sm md:text-base leading-relaxed">
+                    ${text}
+                </div>
+            `;
+            chatHistory.appendChild(msgDiv);
+            chatHistory.scrollTop = chatHistory.scrollHeight;
+        }
+
+        function renderOptions(options) {
+            const container = document.getElementById('options-container');
+            container.innerHTML = '';
+            
+            options.forEach(opt => {
+                const btn = document.createElement('button');
+                btn.className = "w-full sm:w-auto btn-secondary";
+                btn.textContent = opt;
+                btn.onclick = () => handleInputSelection(opt);
+                container.appendChild(btn);
+            });
+        }
+
+        function startQuestions() {
+            document.getElementById('options-container').innerHTML = '';
+            executeQuestionStep();
+        }
+
+        function executeQuestionStep() {
+            if (currentStepIndex === 1) {
+                // Adjusting English Exam detail question based on previous step
+                const selectedType = profileStore.english_type;
+                if (selectedType.includes("IELTS")) {
+                    flowQuestions[1].question = "현재 보유(또는 예측) 중인 IELTS (Academic) 스코어 밴드를 골라주세요.";
+                    flowQuestions[1].options = ["IELTS 7.0 이상", "IELTS 6.5", "IELTS 6.0", "IELTS 5.5 이하"];
+                } else if (selectedType.includes("PTE")) {
+                    flowQuestions[1].question = "현재 보유(또는 예측) 중인 PTE Academic 스코어를 골라주세요.";
+                    flowQuestions[1].options = ["PTE 65점 이상", "PTE 58점 ~ 64점", "PTE 50점 ~ 57점", "PTE 49점 이하"];
+                } else if (selectedType.includes("TOEFL")) {
+                    flowQuestions[1].question = "현재 보유(또는 예측) 중인 TOEFL iBT 스코어를 골라주세요.";
+                    flowQuestions[1].options = ["TOEFL 94점 이상", "TOEFL 79점 ~ 93점", "TOEFL 60점 ~ 78점", "TOEFL 59점 이하"];
+                } else {
+                    // Skip to grades directly if they have no exam
+                    profileStore.english = "공인 점수 없음 (어학 연수 연계 필요)";
+                    currentStepIndex = 2; // Jump index directly
+                    executeQuestionStep();
+                    return;
+                }
+            }
+
+            if (currentStepIndex < flowQuestions.length) {
+                const q = flowQuestions[currentStepIndex];
+                setTimeout(() => {
+                    addMessage(q.question);
+                    renderOptions(q.options);
+                }, 300);
+            } else {
+                initiateAILoader();
+            }
+        }
+
+        function handleInputSelection(val) {
+            addMessage(val, true);
+            document.getElementById('options-container').innerHTML = '';
+            
+            const currentQuestionKey = flowQuestions[currentStepIndex].key;
+            if (currentStepIndex === 0) {
+                profileStore.english_type = val;
+            } else {
+                profileStore[currentQuestionKey] = val;
+            }
+
+            currentStepIndex++;
+            
+            // Console-style brief waiting message before next step
+            const waitElem = document.createElement('div');
+            waitElem.id = 'inline-console';
+            waitElem.className = 'text-xs font-mono text-cursor-body p-2 animate-pulse';
+            waitElem.innerText = `[LOG] Profile updated. Waiting next query sequence...`;
+            document.getElementById('chat-history').appendChild(waitElem);
+
+            setTimeout(() => {
+                if (document.getElementById('inline-console')) {
+                    document.getElementById('inline-console').remove();
+                }
+                executeQuestionStep();
+            }, 600);
+        }
+
+        function initiateAILoader() {
+            document.getElementById('chat-container').style.display = 'none';
+            document.getElementById('loader-container').style.display = 'flex';
+
+            const timelineIds = [
+                'timeline-step-1',
+                'timeline-step-2',
+                'timeline-step-3',
+                'timeline-step-4',
+                'timeline-step-5'
+            ];
+
+            let activeIdIndex = 0;
+
+            function runAIEngineTimeline() {
+                if (activeIdIndex < timelineIds.length) {
+                    const stepEl = document.getElementById(timelineIds[activeIdIndex]);
+                    if (stepEl) {
+                        stepEl.classList.remove('opacity-30');
+                        stepEl.classList.add('opacity-100');
+                    }
+                    activeIdIndex++;
+                    setTimeout(runAIEngineTimeline, 800); // 800ms intervals between AI Agent stages
+                } else {
+                    setTimeout(buildEditorialReport, 600);
+                }
+            }
+
+            runAIEngineTimeline();
+        }
+
+        function resolvePathwayRouting() {
+            let config = {
+                pathwayName: "",
+                reasoning: "",
+                tagColor: "bg-timeline-thinking",
+                badgeText: "DIRECT ENTRY TARGET"
+            };
+
+            const userGrades = profileStore.grades || "";
+            const userMajor = profileStore.major || "";
+
+            if (userMajor === "의대/의전원 (Medicine)") {
+                if (userGrades.includes("1~3등급")) {
+                    config.pathwayName = "호주 의학 학사 다이렉트 신입학 과정";
+                    config.reasoning = "우수한 고교 등급/수능 성적을 확보하고 있어 의대 1학년 직행(Direct Entry) 자격을 일단 구비하고 있습니다. 하지만 연간 80여 명의 좁은 정원 제한과 ISAT/UCAT 적성고사, 다중 미니 면접(MMI) 인터뷰의 변별력이 최종 합격을 지배합니다. edm 의치한 전문팀의 동시 관리가 필요합니다.";
+                    config.tagColor = "bg-timeline-read";
+                    config.badgeText = "DIRECT HIGHEST ELIGIBILITY";
+                } else {
+                    config.pathwayName = "Biomedical Science (의생명과학) 학사 이수 후 의전원(MD) 4년 편입";
+                    config.reasoning = "한국 일반 고교 학업 조건으로 최상급 G8 의과 다이렉트는 리스크가 큽니다. 입학 조건 장벽이 현저히 낮은 의생명과학 3년 학사로 부드럽게 진학한 뒤, 학업 평점(GPA)을 탄탄하게 유지하여 의학전문대학원(GAMSAT 필수) 4년 과정으로 수직 연계하는 대안이 훨씬 안전하며 성공률이 높습니다.";
+                    config.tagColor = "bg-timeline-edit";
+                    config.badgeText = "BIOMEDICAL PRE-MED ROUTE";
+                }
+            } else if (userGrades.includes("6등급") || userGrades.includes("4~5등급")) {
+                if (userMajor.includes("간호") || userMajor.includes("IT") || userMajor.includes("호텔") || userMajor.includes("공학")) {
+                    config.pathwayName = "명문대 연계 Diploma (디플로마, 1년) -> 대학교 2학년 보장 편입";
+                    config.reasoning = "고등학교 성적(내신 6등급 이하)이 낮아도 좌절할 필요가 전혀 없습니다. 호주 대학 본과 산하의 디플로마 1년 코스에 진입하면 소규모 분반에서 집중 기초 케어를 마친 뒤, 학사 과정의 **2학년으로 편입이 공식적으로 약속(Articulation Guarantee)**됩니다. 시간 손실과 예산 낭비를 통제하는 가장 검증된 진학 모델입니다.";
+                    config.tagColor = "bg-timeline-grep";
+                    config.badgeText = "DIPLOMA ARTICULATION PATHWAY";
+                } else {
+                    config.pathwayName = "Foundation (학부 예비 과정, 8~12개월) -> 본과 1학년 입학";
+                    config.reasoning = "선택하신 희망 전공과 명문대 학업 매치율을 충족하기 위하여, 필수적인 고교 3학년 교과 상응 기초 과목을 학습하는 파운데이션 과정을 먼저 이수할 것을 제안합니다. 영문 수강 에티켓과 아카데믹 라이팅을 완벽히 교정받아 첫 학기 중도 이탈률을 영(0)으로 만듭니다.";
+                    config.tagColor = "bg-timeline-thinking";
+                    config.badgeText = "FOUNDATION ACADEMIC BRIDGE";
+                }
+            } else if (userGrades.includes("대학교")) {
+                if (userMajor.includes("간호")) {
+                    config.pathwayName = "GE (Graduate Entry) 2년 단축 취득 또는 선수과목 학점 이전 편입";
+                    config.reasoning = "이미 대학교 학업 이력이 있으므로, 학위 소지 유무를 토대로 비전공자도 단 2년 만에 간호학과 정식 학위를 수여받을 수 있는 GE(Graduate Entry) 제도가 최고 효율입니다. Griffith, UniSC 등 최적의 GE 인가 기관들을 중심으로 매칭을 수립합니다.";
+                    config.tagColor = "bg-timeline-done";
+                    config.badgeText = "GRADUATE ENTRY SHORT-TRACK";
+                } else {
+                    config.pathwayName = "대학교 1학년 신입학 & 학점 심사(Credit Exemption) 편입";
+                    config.reasoning = "한국 대학교에서 취득하신 교양 및 유사 전공 학점을 호주 대학에 심사 의뢰하여, 최소 1개 학기 이상의 공부 분량을 공식적으로 감면 및 감액받아 호주 대학교 1~2학년으로 편입 진출을 시도합니다.";
+                    config.tagColor = "bg-timeline-read";
+                    config.badgeText = "ADVANCED STANDING EXEMPTION";
+                }
+            } else {
+                config.pathwayName = "호주 명문 대학교 1학년 Direct (학사 직행) 입학";
+                config.reasoning = "우수한 한국 수능(CSAT) 표준점수 혹은 높은 고교 성적을 완비하여, 번거로운 예비 과정 없이 바로 1학년 직항 전형으로 합격 오퍼를 취득할 가능성이 매우 큽니다. 공인 어학 점수 서류만 보완하면 즉시 조건부 입학을 성사할 수 있습니다.";
+                config.tagColor = "bg-timeline-done";
+                config.badgeText = "DIRECT MATRICULATION ROUTE";
+            }
+
+            return config;
+        }
+
+        function buildEditorialReport() {
+            document.getElementById('loader-container').style.display = 'none';
+            document.getElementById('result-container').style.display = 'block';
+            window.scrollTo(0, 0);
+
+            const pathConfig = resolvePathwayRouting();
+            const majorInfo = targetMajorsData[profileStore.major] || targetMajorsData["간호학과 (Nursing)"];
+
+            let html = `
+                <!-- Document Header -->
+                <div class="border-b border-cursor-hairline pb-8 mb-8">
+                    <p class="font-mono text-xs uppercase tracking-widest text-cursor-orange mb-2">Diagnostic Assessment Report</p>
+                    <h1 class="display-lg mb-4">호주 대학교 입학 자격 분석 진단서</h1>
+                    <p class="text-sm text-cursor-body font-mono">Date Generated: 2026.07.06 · Target Term: 2026-27 Intake · Analyst: edm AI Pathway Consultant</p>
+                </div>
+
+                <!-- Profile Summary Grid -->
+                <div class="border border-cursor-hairline rounded-xl bg-cursor-canvas-soft p-6 mb-8 font-mono">
+                    <h4 class="text-xs uppercase tracking-wider text-cursor-ink font-bold border-b border-cursor-hairline pb-2 mb-4">STUDENT_PROFILE_MAPPED</h4>
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                        <div class="flex items-center justify-between border-b border-cursor-hairline pb-1.5"><span class="text-cursor-body">English Score Mapped</span><strong class="text-cursor-ink">${profileStore.english}</strong></div>
+                        <div class="flex items-center justify-between border-b border-cursor-hairline pb-1.5"><span class="text-cursor-body">Academic Status</span><strong class="text-cursor-ink">${profileStore.grades}</strong></div>
+                        <div class="flex items-center justify-between border-b border-cursor-hairline pb-1.5"><span class="text-cursor-body">Target Major Interest</span><strong class="text-cursor-ink">${profileStore.major}</strong></div>
+                        <div class="flex items-center justify-between border-b border-cursor-hairline pb-1.5"><span class="text-cursor-body">Primary Ambition</span><strong class="text-cursor-ink">${profileStore.target}</strong></div>
+                    </div>
+                </div>
+
+                <!-- Pathway Strategy Section -->
+                <div class="mb-10">
+                    <span class="inline-block px-2 py-0.5 rounded-full text-[10px] font-bold ${pathConfig.tagColor} text-cursor-ink uppercase tracking-wider mb-2 font-mono">${pathConfig.badgeText}</span>
+                    <h2 class="display-sm mb-4">${pathConfig.pathwayName}</h2>
+                    <p class="text-sm leading-relaxed text-cursor-body whitespace-pre-line">${pathConfig.reasoning}</p>
+                </div>
+
+                <!-- AI Recommended Major Details -->
+                <div class="border border-cursor-hairline rounded-xl p-6 mb-10 bg-white">
+                    <p class="font-mono text-[10px] uppercase tracking-widest text-cursor-orange mb-1">AI Recommendation Major</p>
+                    <h3 class="display-sm mb-3" style="margin-top: 0;">${profileStore.major}</h3>
+                    <p class="text-sm leading-relaxed text-cursor-body">${majorInfo.desc}</p>
+                </div>
+
+                <!-- G8 & Specialized Universities Database Grid -->
+                <h3 class="display-sm mb-4 border-b border-cursor-hairline pb-2">2026-27학년도 추천 대학교 리스트 및 핵심 자격</h3>
+                <div class="overflow-x-auto mb-10">
+                    <table class="w-full text-xs font-mono">
+                        <thead>
+                            <tr>
+                                <th>추천 대학 및 학과 (Degree)</th>
+                                <th>소재지</th>
+                                <th>특징 및 랭킹</th>
+                                <th>입학 요구 성적</th>
+                                <th>필요 IELTS</th>
+                                <th>연간 예상 학비</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+            `;
+
+            majorInfo.schools.forEach(school => {
+                html += `
+                    <tr>
+                        <td class="font-mono text-sm">
+                            <a href="${school.url}" target="_blank" class="text-cursor-orange font-bold hover:underline">
+                                ${school.name} <i class="fa-solid fa-arrow-up-right-from-square text-[9px] ml-1"></i>
+                            </a>
+                            <div class="text-[10px] text-cursor-body mt-1">${school.degree}</div>
+                        </td>
+                        <td>${school.location}</td>
+                        <td class="text-cursor-body">${school.rank}</td>
+                        <td class="text-cursor-ink font-bold">${school.req}</td>
+                        <td>${school.ielts}</td>
+                        <td class="font-bold text-cursor-ink">${school.tuition}</td>
+                    </tr>
+                `;
+            });
+
+            html += `
+                        </tbody>
+                    </table>
+                </div>
+
+                <!-- Practical Advice Tip Box -->
+                <div class="border-l-4 border-cursor-orange bg-cursor-canvas-soft p-5 rounded-r-lg mb-10 text-sm">
+                    <h4 class="font-bold text-cursor-ink mb-1">💡 edm 수석 어드바이저 코칭 조언</h4>
+                    <p class="text-cursor-body leading-relaxed m-0">${majorInfo.advice}</p>
+                </div>
+
+                <!-- Quick Action Checklist -->
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div class="border border-cursor-hairline rounded-xl p-6 bg-cursor-canvas-soft">
+                        <h4 class="text-xs uppercase tracking-wider text-cursor-ink font-bold border-b border-cursor-hairline pb-2 mb-4 font-mono">PREPARATION_CHECKLIST</h4>
+                        <ul class="text-xs space-y-2.5">
+                            <li><strong>입학 구비 서류:</strong> 한글/영문 고등학교 및 대학교 졸업(재학) 및 성적 증명서, 여권 사본</li>
+                            <li><strong>선수 과목(Prerequisites):</strong> 약대, 의대, 이공계 지원 시 화학/생물/수학 선수과목 고교 수강 이력을 필히 사전 감수받으세요.</li>
+                            <li><strong>조건부 입학 오퍼(Conditional Offer):</strong> 아직 영어 시험 점수가 없어도, 아카데믹 서류 검토만으로 입학 정원 우선 선점을 위한 조건부 합격통지서를 먼저 받을 수 있습니다.</li>
+                            <li><strong>비자 심사 절차:</strong> 입학확정서(CoE) 및 유학생 의료보험(OSHC) 결제 완료 후, 호주 학생비자(Subclass 500) 수속을 단독 대행합니다.</li>
+                        </ul>
+                    </div>
+
+                    <!-- YouTube Video Component Mapped from Official Channel -->
+                    <div class="border border-cursor-hairline rounded-xl p-6 bg-cursor-canvas-soft flex flex-col justify-between">
+                        <div>
+                            <h4 class="text-xs uppercase tracking-wider text-cursor-ink font-bold border-b border-cursor-hairline pb-2 mb-1 font-mono">RECOMMENDED_VIDEO</h4>
+                            <p class="text-[11px] text-cursor-body mb-4">유학티비 - edm유학센터 공식 유튜브 가이드 영상</p>
+                        </div>
+                        <a href="https://www.youtube.com/watch?v=${majorInfo.ytId}" target="_blank" class="block relative rounded-lg overflow-hidden group border border-cursor-hairline aspect-video">
+                            <img src="https://img.youtube.com/vi/${majorInfo.ytId}/maxresdefault.jpg" alt="edm유학센터 유튜브 썸네일" class="w-full h-full object-cover transition duration-300 group-hover:scale-105">
+                            <div class="absolute inset-0 bg-black/40 flex items-center justify-center group-hover:bg-opacity-20 transition">
+                                <i class="fa-brands fa-youtube text-4xl text-white"></i>
+                            </div>
+                            <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black to-transparent p-3">
+                                <span class="text-white text-xs font-bold block truncate">${majorInfo.ytTitle}</span>
+                            </div>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Editorial Resource Center Banner -->
+                <a href="https://www.edmuhak.com/programs/australia-uhak-point" target="_blank" class="block border border-cursor-hairline rounded-xl p-6 bg-white hover:border-cursor-orange transition duration-200">
+                    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+                        <div class="text-center sm:text-left">
+                            <p class="font-mono text-[10px] uppercase tracking-widest text-cursor-orange mb-1">Interactive Resource Guide</p>
+                            <h4 class="font-bold text-cursor-ink text-sm sm:text-base">결과를 바꾸는 호주 명문대 합격 로드맵 알아보기</h4>
+                            <p class="text-xs text-cursor-body mt-1">edm유학센터 단독 프리미엄 패키지 및 장학 혜택, 실제 입학성공 스토리 열람</p>
+                        </div>
+                        <span class="btn-primary text-xs shrink-0">
+                            리소스로 이동 <i class="fa-solid fa-arrow-right text-[10px] ml-1"></i>
+                        </span>
+                    </div>
+                </a>
+            `;
+
+            document.getElementById('result-content').innerHTML = html;
+        }
+
+        function resetConsultation() {
+            currentStepIndex = 0;
+            profileStore = { english_type: "", english: "", grades: "", major: "", target: "" };
+            
+            const chatHistory = document.getElementById('chat-history');
+            chatHistory.innerHTML = `
+                <div class="flex gap-4 max-w-4xl fade-in">
+                    <div class="w-10 h-10 rounded-lg bg-cursor-ink flex items-center justify-center text-cursor-canvas shrink-0 border border-cursor-hairline">
+                        <i class="fa-solid fa-user-astronaut text-sm"></i>
+                    </div>
+                    <div class="bg-white border border-cursor-hairline rounded-xl p-5 text-sm md:text-base leading-relaxed text-cursor-ink">
+                        <p class="font-mono text-xs uppercase tracking-wider text-cursor-orange mb-1">Introduction</p>
+                        안녕하세요! <strong>edm유학센터 (edm education)</strong>의 호주 진학 수석 AI 컨설턴트입니다.<br><br>
+                        학생분의 목표 전공 및 성적 데이터를 다시 매칭하여 가장 정밀한 **2026-27년도 최신 플랜**을 설계하겠습니다. 다시 진행할까요?
+                    </div>
+                </div>
+            `;
+            
+            document.getElementById('result-container').style.display = 'none';
+            document.getElementById('chat-container').style.display = 'flex';
+            
+            renderOptions(["호주 유학 AI 진단 시작하기"]);
+        }
+
+        function downloadPDF() {
+            const element = document.getElementById('report-print-area');
+            const opt = {
+                margin:       [10, 10, 10, 10],
+                filename:     'edm유학센터_호주대학_AI진단서_2026.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+            
+            const btn = event.currentTarget;
+            const originalHTML = btn.innerHTML;
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> 생성중...';
+            
+            html2pdf().set(opt).from(element).save().then(() => {
+                btn.innerHTML = originalHTML;
+            });
+        }
+    </script>
+
+    <footer class="bg-cursor-canvas border-t border-cursor-hairline py-8 px-6 text-center shrink-0 hidden sm:block">
+        <div class="max-w-[1200px] mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-xs">
+            <div class="flex items-center gap-3">
+                <img src="https://s3.ap-northeast-2.amazonaws.com/img.edmuhak.com/uhak/renewal/common/edmuhak_logo.svg" alt="edm유학센터" class="h-4 opacity-70">
+                <span class="text-cursor-body">| 대표이사: 서동성 | 서울 서초구 서초대로78길 22 홍우제2빌딩 6층</span>
+            </div>
+            <div class="text-cursor-body font-mono">
+                COPYRIGHT edm EDUCATION ALL RIGHTS RESERVED.
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
