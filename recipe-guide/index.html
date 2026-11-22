@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>회덮밥 &amp; 얼큰매운탕 레시피 가이드</title>
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Pretendard & Noto Sans KR Webfonts -->
+  <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            cream: '#FAF8F5',
+            charcoal: '#1F2937',
+            hoe: {
+              DEFAULT: '#0F766E',
+              light: '#CCFBF1',
+              soft: '#F0FDFA',
+              dark: '#115E59',
+            },
+            tang: {
+              DEFAULT: '#C2410C',
+              light: '#FFEDD5',
+              soft: '#FFF7ED',
+              dark: '#9A3412',
+            },
+          },
+          fontFamily: {
+            sans: ['"Pretendard Variable"', 'Pretendard', '"Noto Sans KR"', '-apple-system', 'BlinkMacSystemFont', 'sans-serif'],
+          },
+          boxShadow: {
+            'soft': '0 4px 20px -2px rgba(31, 41, 55, 0.06)',
+            'floating': '0 -6px 24px -4px rgba(31, 41, 55, 0.16)',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    /* 주방 환경에서의 부드러운 스크롤 및 터치 최적화 */
+    html {
+      scroll-behavior: smooth;
+      -webkit-tap-highlight-color: transparent;
+    }
+    body {
+      background-color: #FAF8F5;
+      color: #1F2937;
+      font-family: "Pretendard Variable", Pretendard, "Noto Sans KR", -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+    /* 체크 완료 항목 스타일 */
+    .item-checked {
+      opacity: 0.52;
+      background-color: #F3F4F6 !important;
+    }
+    .item-checked .item-title {
+      text-decoration: line-through;
+      color: #6B7280;
+    }
+    /* 타이머 완료 펄스 애니메이션 */
+    @keyframes timerPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(194, 65, 12, 0.55); }
+      50% { box-shadow: 0 0 0 12px rgba(194, 65, 12, 0); }
+    }
+    .timer-done-pulse {
+      animation: timerPulse 1.2s infinite;
+    }
+    /* 이미지 호버/터치 줌 전환 */
+    .photo-zoom {
+      transition: transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .group:hover .photo-zoom {
+      transform: scale(1.04);
+    }
+  </style>
+</head>
+<body class="bg-cream text-charcoal min-h-screen pb-44 selection:bg-hoe-light selection:text-hoe-dark">
+
+  <!-- ==================== 상단 헤더 & 2분할 히어로 비주얼 ==================== -->
+  <header class="bg-white border-b border-stone-200/80 pt-5 pb-5 px-4 sm:px-6">
+    <div class="max-w-xl mx-auto">
+      <!-- 상단 배지 & 체크 초기화 버튼 -->
+      <div class="flex items-center justify-between gap-2 mb-3">
+        <span class="inline-flex items-center gap-1.5 text-xs font-bold px-3 py-1 rounded-full bg-amber-50 text-amber-800 border border-amber-200/70">
+          <span>🐟</span> 남은 회 &amp; 서더리 완벽 활용
+        </span>
+        <button id="btn-open-reset" type="button"
+          class="inline-flex items-center gap-1 text-xs font-semibold text-stone-500 hover:text-tang active:scale-95 transition px-3 py-1.5 rounded-xl bg-stone-100 hover:bg-stone-200/70">
+          <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          </svg>
+          체크 초기화
+        </button>
+      </div>
+
+      <!-- 타이틀 및 부제목 -->
+      <h1 class="text-2xl sm:text-3xl font-extrabold tracking-tight text-charcoal leading-tight">
+        회덮밥 &amp; 얼큰매운탕<br class="sm:hidden" /> 레시피 가이드
+      </h1>
+      <p class="text-sm text-stone-500 mt-1.5 leading-relaxed">
+        어제 남은 숙성회와 서더리로 30분 만에 차리는 횟집 부럽지 않은 집밥 한 상
+      </p>
+
+      <!-- 상단 히어로 2분할 비주얼 카드 (탭 시 해당 메뉴로 이동) -->
+      <div class="grid grid-cols-2 gap-2.5 mt-4">
+        <!-- 왼쪽: 회덮밥 완성 사진 -->
+        <button type="button" data-jump-tab="hoe"
+          class="group relative h-36 sm:h-44 rounded-2xl overflow-hidden shadow-soft border border-stone-200/70 text-left focus:outline-none active:scale-[0.98] transition">
+          <img
+            src="https://www.carolinescooking.com/wp-content/uploads/2024/05/Korean-sashimi-rice-bowl-hoedeopbap-featured-pic-sq.jpg"
+            alt="신선한 회덮밥 완성 사진"
+            referrerpolicy="no-referrer"
+            onerror="handleImageFallback(this)"
+            class="photo-zoom w-full h-full object-cover" />
+          <!-- 로딩 실패 시 그라데이션/이모지 폴백 -->
+          <div class="img-fallback hidden w-full h-full bg-gradient-to-br from-hoe via-teal-600 to-emerald-800 items-center justify-center">
+            <span class="text-5xl drop-shadow-sm">🥗</span>
+          </div>
+          <!-- 하단 그라데이션 오버레이 & 캡션 -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-2.5">
+            <span class="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-extrabold px-2 py-0.5 rounded-full bg-hoe/90 text-white backdrop-blur-xs shadow-sm">
+              🥗 새콤달콤
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-2.5 text-white">
+            <div class="text-sm sm:text-base font-extrabold leading-tight">숙성 회덮밥</div>
+            <div class="text-[11px] text-white/85 mt-0.5 flex items-center gap-1">
+              <span>황금 초장 레시피</span>
+              <span class="opacity-80">→</span>
+            </div>
+          </div>
+        </button>
+
+        <!-- 오른쪽: 얼큰매운탕 완성 사진 -->
+        <button type="button" data-jump-tab="tang"
+          class="group relative h-36 sm:h-44 rounded-2xl overflow-hidden shadow-soft border border-stone-200/70 text-left focus:outline-none active:scale-[0.98] transition">
+          <img
+            src="https://english.visitkorea.or.kr/public/images/foodtrip/k-food-img/202509011.jpg"
+            alt="보글보글 얼큰매운탕 완성 사진"
+            referrerpolicy="no-referrer"
+            onerror="handleImageFallback(this)"
+            class="photo-zoom w-full h-full object-cover" />
+          <!-- 로딩 실패 시 그라데이션/이모지 폴백 -->
+          <div class="img-fallback hidden w-full h-full bg-gradient-to-br from-tang via-orange-600 to-red-800 items-center justify-center">
+            <span class="text-5xl drop-shadow-sm">🍲</span>
+          </div>
+          <!-- 하단 그라데이션 오버레이 & 캡션 -->
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/20 to-transparent pointer-events-none"></div>
+          <div class="absolute top-2.5 left-2.5">
+            <span class="inline-flex items-center gap-1 text-[10px] sm:text-[11px] font-extrabold px-2 py-0.5 rounded-full bg-tang/90 text-white backdrop-blur-xs shadow-sm">
+              🍲 칼칼·시원
+            </span>
+          </div>
+          <div class="absolute bottom-2.5 left-3 right-2.5 text-white">
+            <div class="text-sm sm:text-base font-extrabold leading-tight">얼큰 서더리탕</div>
+            <div class="text-[11px] text-white/85 mt-0.5 flex items-center gap-1">
+              <span>비린내 제로 비법</span>
+              <span class="opacity-80">→</span>
+            </div>
+          </div>
+        </button>
+      </div>
+
+      <!-- 인분 선택기 (1~4인분 자동 계량 환산) -->
+      <div class="mt-4 bg-cream rounded-2xl p-2 border border-stone-200/80 flex items-center justify-between gap-2">
+        <div class="pl-2 flex items-center gap-1.5 shrink-0">
+          <span class="text-base">🍽️</span>
+          <span class="text-xs sm:text-sm font-extrabold text-stone-700">인분 선택</span>
+        </div>
+        <div id="servings-selector" class="grid grid-cols-4 gap-1.5 flex-1 max-w-[260px]" role="group" aria-label="인분 선택">
+          <!-- JS로 렌더링 -->
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==================== 상단 고정(Sticky) 3단 탭 메뉴 ==================== -->
+  <nav class="sticky top-0 z-30 bg-cream/95 backdrop-blur-md border-b border-stone-200/90 shadow-sm">
+    <div class="max-w-xl mx-auto px-3 py-2">
+      <div class="grid grid-cols-3 gap-1.5 bg-stone-200/65 p-1 rounded-2xl" role="tablist">
+        <button type="button" role="tab" data-tab="timeline"
+          class="tab-btn flex flex-col sm:flex-row items-center justify-center gap-1 py-2.5 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200">
+          <span>⏱️</span>
+          <span>동시 조리 동선</span>
+        </button>
+        <button type="button" role="tab" data-tab="hoe"
+          class="tab-btn flex flex-col sm:flex-row items-center justify-center gap-1 py-2.5 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200">
+          <span>🥗</span>
+          <span>회덮밥</span>
+        </button>
+        <button type="button" role="tab" data-tab="tang"
+          class="tab-btn flex flex-col sm:flex-row items-center justify-center gap-1 py-2.5 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200">
+          <span>🍲</span>
+          <span>얼큰매운탕</span>
+        </button>
+      </div>
+    </div>
+  </nav>
+
+  <!-- ==================== 메인 콘텐츠 영역 ==================== -->
+  <main class="max-w-xl mx-auto px-4 sm:px-6 pt-5 space-y-6">
+
+    <!-- ==================== 탭 1: 동시 조리 동선 ==================== -->
+    <section id="panel-timeline" class="tab-panel space-y-5" role="tabpanel">
+      <!-- 동시 조리 요약 카드 -->
+      <div class="bg-white rounded-3xl p-5 shadow-soft border border-stone-200/70">
+        <span class="inline-block text-xs font-bold px-2.5 py-1 rounded-full bg-stone-100 text-stone-700 mb-2">총 소요시간 약 30분</span>
+        <h2 class="text-lg font-extrabold text-charcoal">따뜻한 매운탕 + 신선한 회덮밥 동시 완성!</h2>
+        <p class="text-sm text-stone-500 mt-1 leading-relaxed">
+          매운탕 무 육수가 끓는 10분 동안 회덮밥 채소와 초장을 완성하는 최적의 주방 동선입니다. 완료한 단계는 탭해서 체크해 보세요.
+        </p>
+
+        <!-- 타임라인 진행률 바 -->
+        <div class="mt-4 pt-3.5 border-t border-stone-100">
+          <div class="flex items-center justify-between text-xs font-bold mb-1.5">
+            <span class="text-stone-600">동시 조리 진행률</span>
+            <span id="timeline-progress-text" class="text-charcoal">0 / 6 완료</span>
+          </div>
+          <div class="w-full h-2.5 bg-stone-100 rounded-full overflow-hidden">
+            <div id="timeline-progress-bar" class="h-full bg-gradient-to-r from-hoe to-tang rounded-full transition-all duration-300" style="width: 0%"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 타임라인 스텝 리스트 (JS 렌더링) -->
+      <div id="timeline-steps-container" class="space-y-3.5"></div>
+    </section>
+
+    <!-- ==================== 탭 2: 회덮밥 ==================== -->
+    <section id="panel-hoe" class="tab-panel hidden space-y-5" role="tabpanel">
+      <!-- 회덮밥 상단 대표 배너 이미지 -->
+      <div class="relative h-52 sm:h-60 rounded-3xl overflow-hidden shadow-soft border border-stone-200/80">
+        <img
+          src="https://www.carolinescooking.com/wp-content/uploads/2024/05/Korean-sashimi-rice-bowl-hoedeopbap-featured-pic-sq.jpg"
+          alt="신선한 채소와 회가 어우러진 회덮밥"
+          referrerpolicy="no-referrer"
+          onerror="handleImageFallback(this)"
+          class="w-full h-full object-cover" />
+        <div class="img-fallback hidden w-full h-full bg-gradient-to-br from-hoe to-hoe-dark items-center justify-center">
+          <span class="text-6xl">🥗</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 pointer-events-none"></div>
+        <div class="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-hoe/90 text-white backdrop-blur-sm shadow-sm">🥗 신선 &amp; 새콤달콤</span>
+          <span class="servings-badge text-xs font-extrabold px-3 py-1 rounded-full bg-white/95 text-hoe-dark shadow-sm">2인분 기준</span>
+        </div>
+        <div class="absolute bottom-4 left-4 right-4 text-white">
+          <h2 class="text-xl sm:text-2xl font-extrabold leading-tight">남은 회 200% 살리는 회덮밥</h2>
+          <p class="text-xs sm:text-sm text-white/90 mt-1 leading-relaxed">
+            하루 숙성되어 감칠맛이 오른 회에 아삭한 채소, 고소한 지느러미, 사이다 한 스푼 넣은 황금 초장을 더해 완성해요.
+          </p>
+        </div>
+      </div>
+
+      <!-- 하루 숙성된 남은 회 손질 & 활용 팁 카드 (숙성 광어회 사진 썸네일) -->
+      <article class="bg-white rounded-3xl p-4 shadow-soft border border-hoe/20 flex items-center gap-3.5">
+        <div class="relative w-24 h-24 sm:w-28 sm:h-28 rounded-2xl overflow-hidden shrink-0 border border-stone-200/70">
+          <img
+            src="https://english.visitkorea.or.kr/public/images/2025/09/11/5b5da42c32cf46a0ab3e59c0e5738927.jpg"
+            alt="윤기 흐르는 숙성 광어회"
+            referrerpolicy="no-referrer"
+            onerror="handleImageFallback(this)"
+            class="w-full h-full object-cover" />
+          <div class="img-fallback hidden w-full h-full bg-gradient-to-br from-teal-100 to-teal-300 items-center justify-center">
+            <span class="text-3xl">🐟</span>
+          </div>
+          <span class="absolute bottom-1.5 left-1.5 text-[10px] font-extrabold px-1.5 py-0.5 rounded-md bg-black/65 text-white backdrop-blur-xs">숙성 광어회</span>
+        </div>
+        <div class="min-w-0 flex-1">
+          <span class="inline-block text-[11px] font-extrabold px-2 py-0.5 rounded-full bg-hoe-soft text-hoe-dark mb-1">💡 하루 지난 숙성회 손질 팁</span>
+          <h3 class="text-sm sm:text-base font-extrabold text-charcoal leading-snug">물기는 톡톡, 지느러미(엔가와)는 따로!</h3>
+          <p class="text-xs text-stone-600 mt-1 leading-relaxed">
+            시큼한 냄새나 끈적임이 없다면 숙성 감칠맛이 최고조예요. 키친타월로 수분을 닦아 한입 크기로 썰고, 고소한 <strong>지느러미</strong>는 맨 위에 올려 간장·와사비를 곁들여 보세요.
+          </p>
+        </div>
+      </article>
+
+      <!-- 기본 재료 체크리스트 카드 -->
+      <div class="bg-white rounded-3xl p-5 shadow-soft border border-stone-200/70 space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-base font-extrabold text-charcoal flex items-center gap-2">
+            <span class="w-2 h-5 rounded-full bg-hoe inline-block"></span>
+            회덮밥 재료 체크리스트
+          </h3>
+          <span id="hoe-ing-progress-text" class="text-xs font-bold text-hoe bg-hoe-soft px-2.5 py-1 rounded-full">0 / 0 준비 완료</span>
+        </div>
+        <!-- 진행률 바 -->
+        <div class="w-full h-2 bg-stone-100 rounded-full overflow-hidden">
+          <div id="hoe-ing-progress-bar" class="h-full bg-hoe rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">기본 재료 (자동 환산)</h4>
+          <div id="hoe-base-ingredients" class="space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- 황금비율 초장 양념장 전용 비주얼 카드 (초고추장 사진 포함) -->
+      <div class="bg-white rounded-3xl overflow-hidden shadow-soft border border-stone-200/70">
+        <div class="relative h-36 sm:h-40 overflow-hidden">
+          <img
+            src="https://www.darngoodveggies.com/wp-content/uploads/2021/01/Gochujang-Sauce-4.jpg"
+            alt="윤기 나는 황금비율 초고추장 양념장"
+            referrerpolicy="no-referrer"
+            onerror="handleImageFallback(this)"
+            class="w-full h-full object-cover" />
+          <div class="img-fallback hidden w-full h-full bg-gradient-to-br from-red-500 via-rose-600 to-orange-700 items-center justify-center">
+            <span class="text-5xl">🌶️</span>
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-black/75 via-black/25 to-transparent pointer-events-none"></div>
+          <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2 text-white">
+            <div>
+              <span class="inline-block text-[10px] font-extrabold px-2 py-0.5 rounded-full bg-rose-600/90 mb-1">사이다가 감칠맛 핵심!</span>
+              <h3 class="text-base sm:text-lg font-extrabold leading-tight">황금비율 초장 양념장</h3>
+            </div>
+            <span class="servings-badge text-[11px] font-bold px-2.5 py-1 rounded-full bg-white/20 backdrop-blur-sm">2인분 기준</span>
+          </div>
+        </div>
+        <div class="p-5 pt-4 space-y-2" id="hoe-sauce-ingredients">
+          <!-- JS 렌더링 -->
+        </div>
+      </div>
+
+      <!-- 단계별 조리 가이드 -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between px-1">
+          <h3 class="text-base font-extrabold text-charcoal flex items-center gap-2">
+            <span class="w-2 h-5 rounded-full bg-hoe inline-block"></span>
+            단계별 만들기
+          </h3>
+          <span id="hoe-step-progress-text" class="text-xs font-bold text-stone-500">0 / 0 완료</span>
+        </div>
+        <div id="hoe-steps-container" class="space-y-3"></div>
+      </div>
+    </section>
+
+    <!-- ==================== 탭 3: 얼큰매운탕 ==================== -->
+    <section id="panel-tang" class="tab-panel hidden space-y-5" role="tabpanel">
+      <!-- 얼큰매운탕 상단 대표 배너 이미지 -->
+      <div class="relative h-52 sm:h-60 rounded-3xl overflow-hidden shadow-soft border border-stone-200/80">
+        <img
+          src="https://english.visitkorea.or.kr/public/images/foodtrip/k-food-img/202509011.jpg"
+          alt="얼큰하고 시원한 서더리 매운탕"
+          referrerpolicy="no-referrer"
+          onerror="handleImageFallback(this)"
+          class="w-full h-full object-cover" />
+        <div class="img-fallback hidden w-full h-full bg-gradient-to-br from-tang to-tang-dark items-center justify-center">
+          <span class="text-6xl">🍲</span>
+        </div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/30 to-black/10 pointer-events-none"></div>
+        <div class="absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between">
+          <span class="text-xs font-bold px-3 py-1 rounded-full bg-tang/90 text-white backdrop-blur-sm shadow-sm">🍲 깊고 칼칼한 국물</span>
+          <span class="servings-badge text-xs font-extrabold px-3 py-1 rounded-full bg-white/95 text-tang-dark shadow-sm">2인분 기준</span>
+        </div>
+        <div class="absolute bottom-4 left-4 right-4 text-white">
+          <h2 class="text-xl sm:text-2xl font-extrabold leading-tight">비린내 제로! 얼큰 서더리 매운탕</h2>
+          <p class="text-xs sm:text-sm text-white/90 mt-1 leading-relaxed">
+            서더리 핏물을 말끔히 빼고 양념장에 <strong>된장 반 스푼</strong>을 더해 횟집 전문점처럼 시원하고 깊게 끓여냅니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 된장 반 스푼 비린내 제거 핵심 팁 배너 -->
+      <div class="bg-tang-soft/80 border border-tang/20 rounded-2xl p-4 flex items-start gap-3">
+        <div class="w-9 h-9 rounded-xl bg-tang text-white flex items-center justify-center text-lg shrink-0 shadow-xs">🔥</div>
+        <div>
+          <h3 class="text-sm font-extrabold text-tang-dark">비린내 잡는 핵심 비법: 된장 반 스푼!</h3>
+          <p class="text-xs text-stone-700 mt-1 leading-relaxed">
+            고춧가루·고추장만 넣으면 자칫 텁텁하거나 생선 잡내가 남을 수 있어요. <strong>된장을 소량</strong> 풀어주면 비린내는 싹 날아가고 구수한 감칠맛이 폭발합니다.
+          </p>
+        </div>
+      </div>
+
+      <!-- 재료 체크리스트 카드 -->
+      <div class="bg-white rounded-3xl p-5 shadow-soft border border-stone-200/70 space-y-4">
+        <div class="flex items-center justify-between">
+          <h3 class="text-base font-extrabold text-charcoal flex items-center gap-2">
+            <span class="w-2 h-5 rounded-full bg-tang inline-block"></span>
+            매운탕 재료 체크리스트
+          </h3>
+          <span id="tang-ing-progress-text" class="text-xs font-bold text-tang bg-tang-soft px-2.5 py-1 rounded-full">0 / 0 준비 완료</span>
+        </div>
+        <!-- 진행률 바 -->
+        <div class="w-full h-2 bg-stone-100 rounded-full overflow-hidden">
+          <div id="tang-ing-progress-bar" class="h-full bg-tang rounded-full transition-all duration-300" style="width: 0%"></div>
+        </div>
+
+        <!-- 기본 재료 -->
+        <div>
+          <h4 class="text-xs font-bold uppercase tracking-wider text-stone-400 mb-2">기본 재료 &amp; 채소</h4>
+          <div id="tang-base-ingredients" class="space-y-2"></div>
+        </div>
+
+        <!-- 얼큰 양념장 -->
+        <div class="pt-3 border-t border-stone-100">
+          <div class="flex items-center justify-between mb-2">
+            <h4 class="text-xs font-bold uppercase tracking-wider text-tang">비린내 잡는 얼큰 양념장</h4>
+            <span class="text-[11px] font-medium text-stone-400">미리 섞어 숙성 추천</span>
+          </div>
+          <div id="tang-sauce-ingredients" class="space-y-2"></div>
+        </div>
+      </div>
+
+      <!-- 단계별 조리 가이드 -->
+      <div class="space-y-3">
+        <div class="flex items-center justify-between px-1">
+          <h3 class="text-base font-extrabold text-charcoal flex items-center gap-2">
+            <span class="w-2 h-5 rounded-full bg-tang inline-block"></span>
+            단계별 끓이기
+          </h3>
+          <span id="tang-step-progress-text" class="text-xs font-bold text-stone-500">0 / 0 완료</span>
+        </div>
+        <div id="tang-steps-container" class="space-y-3"></div>
+      </div>
+    </section>
+
+    <!-- ==================== 셰프의 꿀팁 & 마무리 가이드 (공통 하단 섹션) ==================== -->
+    <section aria-label="셰프의 꿀팁 및 마무리 가이드" class="pt-2 space-y-4">
+      <div class="flex items-center gap-2 px-1">
+        <span class="text-xl">👨‍🍳</span>
+        <h2 class="text-lg font-extrabold text-charcoal">셰프의 꿀팁 &amp; 마무리 가이드</h2>
+      </div>
+
+      <div class="grid grid-cols-1 gap-3">
+        <!-- 팁 1: 숙성 광어회 썸네일 포함 -->
+        <article class="bg-white rounded-2xl p-4 shadow-soft border border-stone-200/70">
+          <div class="flex items-start gap-3">
+            <div class="relative w-14 h-14 rounded-xl overflow-hidden shrink-0 border border-stone-200/70">
+              <img
+                src="https://english.visitkorea.or.kr/public/images/2025/09/11/5b5da42c32cf46a0ab3e59c0e5738927.jpg"
+                alt="숙성 광어회"
+                referrerpolicy="no-referrer"
+                onerror="handleImageFallback(this)"
+                class="w-full h-full object-cover" />
+              <div class="img-fallback hidden w-full h-full bg-hoe-soft text-hoe items-center justify-center text-xl">🐟</div>
+            </div>
+            <div>
+              <h3 class="text-sm font-extrabold text-charcoal">남은 회 상태 확인 &amp; 지느러미(엔가와) 활용</h3>
+              <p class="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed">
+                꺼냈을 때 <strong>시큼한 비린내나 끈적임</strong>이 없다면 맛있게 숙성된 상태입니다. 기름진 <strong>지느러미</strong>는 회덮밥 위에 올려 간장·와사비를 살짝 찍어 드시면 고소함이 배가 됩니다.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 팁 2: 즉석 회 샤브샤브 -->
+        <article class="bg-white rounded-2xl p-4 shadow-soft border border-stone-200/70">
+          <div class="flex items-start gap-3">
+            <div class="w-12 h-12 rounded-xl bg-tang-soft text-tang flex items-center justify-center text-xl shrink-0">🥢</div>
+            <div>
+              <h3 class="text-sm font-extrabold text-charcoal">남은 회가 아직 있다면? 즉석 회 샤브샤브!</h3>
+              <p class="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed">
+                생으로 다 먹기 부담스러운 회 몇 점은 보글보글 끓는 매운탕 국물에 <strong>3~5초만 살짝 데쳐</strong> 드셔보세요. 겉은 쫄깃하고 속은 촉촉한 별미 생선 샤브샤브가 됩니다.
+              </p>
+            </div>
+          </div>
+        </article>
+
+        <!-- 팁 3: 수제비 & 라면사리 -->
+        <article class="bg-white rounded-2xl p-4 shadow-soft border border-stone-200/70">
+          <div class="flex items-start gap-3">
+            <div class="w-12 h-12 rounded-xl bg-amber-50 text-amber-700 flex items-center justify-center text-xl shrink-0">🍜</div>
+            <div>
+              <h3 class="text-sm font-extrabold text-charcoal">남은 매운탕 국물엔 수제비 &amp; 라면사리</h3>
+              <p class="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed">
+                국물이 남았다면 물을 반 컵 보충해 끓인 뒤 <strong>수제비 반죽</strong>이나 <strong>라면사리</strong>를 넣어보세요. 생선 뼈에서 우러난 진한 육수가 면에 배어들어 완벽한 마무리가 됩니다.
+              </p>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <!-- 따뜻한 요리 응원 카드 -->
+      <div class="bg-gradient-to-r from-amber-50 via-orange-50/70 to-teal-50/70 rounded-3xl p-5 border border-amber-200/60 text-center">
+        <p class="text-lg mb-1">✨</p>
+        <p class="text-sm sm:text-base font-extrabold text-charcoal">
+          오늘 한 끼, 정말 근사하게 완성될 거예요!
+        </p>
+        <p class="text-xs sm:text-sm text-stone-600 mt-1 leading-relaxed">
+          어제 남은 재료로 차리는 정성 가득한 집밥, 하단 타이머에 맞춰 여유롭게 즐겨보세요. 맛있게 드세요!
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <!-- ==================== 하단 플로팅 미니 주방 타이머 바 ==================== -->
+  <div id="floating-timer" class="fixed bottom-0 left-0 right-0 z-40 px-3 pb-3 pt-1 pointer-events-none">
+    <div id="timer-card" class="max-w-xl mx-auto bg-charcoal text-white rounded-3xl shadow-floating border border-stone-700/80 p-3.5 pointer-events-auto transition-all duration-300">
+      <!-- 상단 행: 타이머 라벨 + 시간 + 컨트롤 버튼 -->
+      <div class="flex items-center justify-between gap-2">
+        <div class="flex items-center gap-2.5 min-w-0">
+          <div id="timer-icon-box" class="w-10 h-10 rounded-2xl bg-stone-800 flex items-center justify-center text-lg shrink-0">
+            ⏱️
+          </div>
+          <div class="min-w-0">
+            <div id="timer-label" class="text-[11px] font-semibold text-stone-400 truncate">주방 타이머</div>
+            <div id="timer-display" class="text-2xl font-extrabold tracking-wider tabular-nums leading-tight">00:00</div>
+          </div>
+        </div>
+
+        <!-- 컨트롤 버튼 (시작/일시정지, 초기화) -->
+        <div class="flex items-center gap-1.5 shrink-0">
+          <button id="btn-timer-toggle" type="button"
+            class="h-11 px-4 rounded-xl bg-tang hover:bg-tang-dark active:scale-95 text-white text-xs sm:text-sm font-bold transition flex items-center gap-1.5 shadow-sm">
+            <span id="timer-toggle-icon">▶</span>
+            <span id="timer-toggle-text">시작</span>
+          </button>
+          <button id="btn-timer-reset" type="button" aria-label="타이머 초기화"
+            class="h-11 w-11 rounded-xl bg-stone-800 hover:bg-stone-700 active:scale-95 text-stone-300 flex items-center justify-center transition">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            </svg>
+          </button>
+        </div>
+      </div>
+
+      <!-- 하단 행: 퀵 시간 선택 버튼 (3분 / 5분 / 10분 / 15분) -->
+      <div class="grid grid-cols-4 gap-1.5 mt-2.5 pt-2.5 border-t border-stone-800">
+        <button type="button" data-quick-min="3" class="quick-timer-btn py-2 rounded-xl bg-stone-800/90 hover:bg-stone-700 active:scale-95 text-xs font-bold text-stone-200 transition">3분</button>
+        <button type="button" data-quick-min="5" class="quick-timer-btn py-2 rounded-xl bg-stone-800/90 hover:bg-stone-700 active:scale-95 text-xs font-bold text-stone-200 transition">5분</button>
+        <button type="button" data-quick-min="10" class="quick-timer-btn py-2 rounded-xl bg-stone-800/90 hover:bg-stone-700 active:scale-95 text-xs font-bold text-stone-200 transition">10분</button>
+        <button type="button" data-quick-min="15" class="quick-timer-btn py-2 rounded-xl bg-stone-800/90 hover:bg-stone-700 active:scale-95 text-xs font-bold text-stone-200 transition">15분</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 토스트 알림 ==================== -->
+  <div id="toast-container" class="fixed top-20 left-1/2 -translate-x-1/2 z-50 pointer-events-none transition-all duration-300 opacity-0 -translate-y-2">
+    <div id="toast-message" class="bg-charcoal/95 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-2xl shadow-lg whitespace-nowrap">
+      알림 메시지
+    </div>
+  </div>
+
+  <!-- ==================== 체크 초기화 확인 모달 ==================== -->
+  <div id="reset-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/50 backdrop-blur-xs">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-xl border border-stone-200 space-y-4">
+      <div class="text-center space-y-1.5">
+        <div class="w-12 h-12 rounded-2xl bg-tang-soft text-tang flex items-center justify-center text-2xl mx-auto">🔄</div>
+        <h3 class="text-lg font-extrabold text-charcoal">체크 상태를 초기화할까요?</h3>
+        <p class="text-sm text-stone-500">
+          재료 준비와 조리 단계 체크 표시가 모두 해제됩니다. (인분 설정은 유지됩니다)
+        </p>
+      </div>
+      <div class="grid grid-cols-2 gap-2.5 pt-1">
+        <button id="btn-cancel-reset" type="button"
+          class="py-3 rounded-2xl bg-stone-100 hover:bg-stone-200 text-stone-700 text-sm font-bold transition active:scale-95">
+          취소
+        </button>
+        <button id="btn-confirm-reset" type="button"
+          class="py-3 rounded-2xl bg-tang hover:bg-tang-dark text-white text-sm font-bold transition active:scale-95">
+          초기화하기
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ==================== 타이머 완료 알림 모달 ==================== -->
+  <div id="timer-done-modal" class="fixed inset-0 z-50 hidden items-center justify-center p-4 bg-black/55 backdrop-blur-xs">
+    <div class="bg-white rounded-3xl max-w-sm w-full p-6 shadow-xl border border-tang/30 text-center space-y-4">
+      <div class="w-16 h-16 rounded-full bg-tang-soft text-tang flex items-center justify-center text-3xl mx-auto animate-bounce">
+        🔔
+      </div>
+      <div class="space-y-1">
+        <span class="inline-block text-xs font-bold px-2.5 py-0.5 rounded-full bg-tang-soft text-tang">타이머 완료!</span>
+        <h3 id="timer-done-title" class="text-xl font-extrabold text-charcoal">시간이 다 되었어요</h3>
+        <p class="text-sm text-stone-500">냄비 불 세기를 확인하고 다음 단계로 넘어가세요.</p>
+      </div>
+      <button id="btn-close-timer-done" type="button"
+        class="w-full py-3.5 rounded-2xl bg-tang hover:bg-tang-dark text-white text-sm font-extrabold transition active:scale-95">
+        확인했어요
+      </button>
+    </div>
+  </div>
+
+  <!-- ==================== 인터랙티브 스크립트 ==================== -->
+  <script>
+    /**
+     * 외부 이미지 로딩 실패 시 깨진 아이콘 대신
+     * 깔끔한 그라데이션 + 이모지 폴백 레이어를 표시하는 헬퍼 함수
+     */
+    function handleImageFallback(imgEl) {
+      if (!imgEl) return;
+      imgEl.onerror = null;
+      imgEl.classList.add('hidden');
+      const fallback = imgEl.nextElementSibling;
+      if (fallback && fallback.classList.contains('img-fallback')) {
+        fallback.classList.remove('hidden');
+        fallback.classList.add('flex');
+      }
+    }
+
+    // 1. 레시피 데이터 정의 (모든 수량은 1인분 기준)
+    const RECIPE_DATA = {
+      timeline: [
+        {
+          id: 'tl-1',
+          timeRange: '00분 ~ 05분',
+          category: 'tang',
+          categoryLabel: '얼큰매운탕',
+          title: '서더리 핏물 제거 및 깔끔 손질',
+          heat: '손질',
+          tip: '아가미 안쪽과 뼈 사이 검은 막·핏덩이를 꼼꼼히 씻어내야 비린내가 싹 사라져요.',
+          desc: '서더리를 찬물에 헹군 뒤 소주(또는 맛술) 1큰술을 뿌려 잠시 두고 물기를 빼줍니다.'
+        },
+        {
+          id: 'tl-2',
+          timeRange: '05분 ~ 15분',
+          category: 'tang',
+          categoryLabel: '얼큰매운탕',
+          title: '무 & 육수 먼저 끓이기 (양념장 미리 섞기)',
+          heat: '강불 → 중불',
+          tip: '무를 먼저 10분간 끓여두면 국물이 훨씬 시원하고 달큰해집니다.',
+          desc: '냄비에 나박 썬 무와 물(쌀뜨물 추천)을 넣고 강불로 끓이다가, 끓어오르면 중불로 줄여 10분간 우려냅니다. 그동안 매운탕 양념장도 미리 섞어 두세요.',
+          timerMinutes: 10,
+          timerLabel: '무 육수 끓이기'
+        },
+        {
+          id: 'tl-3',
+          timeRange: '06분 ~ 15분',
+          category: 'hoe',
+          categoryLabel: '회덮밥',
+          title: '육수 끓는 동안 회덮밥 채소·숙성회 손질 & 초장 완성',
+          heat: '동시 작업',
+          tip: '채소 물기를 키친타월로 톡톡 제거해야 밥이 질척이지 않아요!',
+          desc: '상추·깻잎·오이를 채 썰어 물기를 빼고, 황금비율 초장을 섞어둡니다. 하루 숙성된 회는 한입 크기로 썰고 고소한 지느러미(엔가와)는 따로 모아둡니다.'
+        },
+        {
+          id: 'tl-4',
+          timeRange: '15분 ~ 25분',
+          category: 'tang',
+          categoryLabel: '얼큰매운탕',
+          title: '서더리 & 황금 양념장 넣고 푹 끓이기',
+          heat: '중불',
+          tip: '떠오르는 거품은 숟가락으로 걷어내야 국물이 텁텁하지 않고 깔끔합니다.',
+          desc: '우러난 무 육수에 손질한 서더리와 숙성해 둔 매운탕 양념장(된장 반 스푼 포함)을 풀고 중불에서 10분간 푹 끓여 진한 감칠맛을 뽑아냅니다.',
+          timerMinutes: 10,
+          timerLabel: '서더리 넣고 중불 끓이기'
+        },
+        {
+          id: 'tl-5',
+          timeRange: '25분 ~ 28분',
+          category: 'tang',
+          categoryLabel: '얼큰매운탕',
+          title: '두부·야채·쑥갓 넣고 마무리 끓이기',
+          heat: '중약불',
+          tip: '쑥갓이나 미나리는 불 끄기 직전에 올려야 향긋함이 살아있어요.',
+          desc: '애호박, 양파, 두부, 대파, 청양고추를 넣고 3분간 더 끓인 뒤 부족한 간은 국간장이나 소금으로 맞춥니다. 마지막에 쑥갓을 올립니다.',
+          timerMinutes: 3,
+          timerLabel: '야채 넣고 마무리 끓이기'
+        },
+        {
+          id: 'tl-6',
+          timeRange: '28분 ~ 30분',
+          category: 'both',
+          categoryLabel: '동시 완성',
+          title: '회덮밥 세팅 & 보글보글 상차림!',
+          heat: '완성',
+          tip: '밥은 뜨거운 김을 한 번만 빼서 담으면 회가 익지 않고 쫄깃해요.',
+          desc: '그릇에 밥 → 채소 → 썬 회 & 지느러미 → 김가루·참기름·통깨 순으로 올리고, 갓 끓인 얼큰매운탕과 초장을 함께 냅니다.'
+        }
+      ],
+      hoe: {
+        baseIngredients: [
+          { id: 'h-ing-1', name: '남은 숙성 모듬회 (지느러미 포함)', base: 120, unit: 'g', note: '한입 크기로 썰기' },
+          { id: 'h-ing-2', name: '따뜻한 밥', base: 1, unit: '공기', note: '김을 살짝 식혀 사용' },
+          { id: 'h-ing-3', name: '쌈채소 (상추·깻잎 등)', base: 40, unit: 'g', note: '약 5~6장, 채 썰기' },
+          { id: 'h-ing-4', name: '오이', base: 0.25, unit: '개', note: '얇게 채 썰기' },
+          { id: 'h-ing-5', name: '양파 (선택)', base: 0.25, unit: '개', note: '찬물에 5분 담가 매운기 제거' },
+          { id: 'h-ing-6', name: '김가루 또는 날치알', base: 1, unit: '큰술', note: '고소함·식감 업' },
+          { id: 'h-ing-7', name: '참기름', base: 0.5, unit: '큰술', note: '마지막에 한 바퀴' },
+          { id: 'h-ing-8', name: '통깨', base: 0.5, unit: '큰술', note: '솔솔 뿌리기' }
+        ],
+        sauceIngredients: [
+          { id: 'h-sce-1', name: '고추장', base: 1.5, unit: '큰술', note: '황금 초장 베이스' },
+          { id: 'h-sce-2', name: '식초', base: 1, unit: '큰술', note: '사과식초 추천' },
+          { id: 'h-sce-3', name: '설탕 (또는 매실청)', base: 1, unit: '큰술', note: '새콤달콤 밸런스' },
+          { id: 'h-sce-4', name: '사이다 (또는 물)', base: 1, unit: '큰술', note: '횟집 특유의 감칠맛 & 농도' },
+          { id: 'h-sce-5', name: '다진 마늘', base: 0.3, unit: '큰술', note: '알싸한 풍미' },
+          { id: 'h-sce-6', name: '레몬즙 (선택)', base: 0.5, unit: '작은술', note: '상큼함 추가' }
+        ],
+        steps: [
+          {
+            id: 'h-stp-1',
+            title: '황금비율 초장 미리 섞어두기',
+            badges: ['준비 2분', '숙성 추천'],
+            desc: '고추장, 식초, 설탕, 사이다, 다진 마늘을 설탕이 녹을 때까지 잘 섞어둡니다. 사이다를 넣으면 시판 초장보다 훨씬 깔끔하고 밥과 잘 비벼집니다.',
+            tip: '단맛이 덜하면 설탕이나 올리고당을 조금 더 추가해 입맛에 맞춰주세요.'
+          },
+          {
+            id: 'h-stp-2',
+            title: '채소 채 썰고 물기 완벽 제거하기',
+            badges: ['손질 5분', '아삭 식감'],
+            desc: '상추, 깻잎, 오이를 먹기 좋게 채 썰어 찬물에 헹군 뒤 체에 밭쳐 물기를 탈탈 털어냅니다. 양파는 찬물에 5분 담가 아린 맛을 뺍니다.',
+            tip: '키친타월로 채소 물기를 가볍게 눌러주면 끝까지 물이 생기지 않아요.'
+          },
+          {
+            id: 'h-stp-3',
+            title: '숙성회 상태 확인 및 한입 썰기',
+            badges: ['손질 3분', '지느러미 분리'],
+            desc: '냉장고에서 꺼낸 회에 물기가 있다면 키친타월로 가볍게 닦아내고 숟가락으로 퍼먹기 좋은 깍둑/한입 크기로 썰어줍니다. 기름진 지느러미 부위는 고명으로 따로 빼둡니다.',
+            tip: '회 조각이 너무 크면 밥과 따로 놀 수 있으니 1.5~2cm 크기가 딱 좋아요.'
+          },
+          {
+            id: 'h-stp-4',
+            title: '그릇에 예쁘게 담고 고소하게 마무리',
+            badges: ['세팅 2분', '완성'],
+            desc: '넓은 볼에 뜨거운 김을 살짝 뺀 밥을 깔고 채소를 듬뿍 올린 뒤 썬 회와 지느러미를 얹습니다. 김가루, 통깨, 참기름을 두르고 초장을 곁들여 비벼 드세요.',
+            tip: '초장을 한 번에 다 넣지 말고 반만 먼저 비빈 뒤 간을 보며 추가하세요.'
+          }
+        ]
+      },
+      tang: {
+        baseIngredients: [
+          { id: 't-ing-1', name: '서더리 (생선 뼈·머리)', base: 200, unit: 'g', note: '핏물·검은 막 제거' },
+          { id: 't-ing-2', name: '물 (또는 쌀뜨물)', base: 400, unit: 'ml', note: '쌀뜨물 사용 시 구수함 업' },
+          { id: 't-ing-3', name: '무', base: 80, unit: 'g', note: '0.5cm 두께 나박 썰기' },
+          { id: 't-ing-4', name: '애호박', base: 0.25, unit: '개', note: '반달 썰기' },
+          { id: 't-ing-5', name: '양파', base: 0.25, unit: '개', note: '굵게 채 썰기' },
+          { id: 't-ing-6', name: '대파', base: 0.5, unit: '대', note: '어슷 썰기' },
+          { id: 't-ing-7', name: '청양고추', base: 0.5, unit: '개', note: '칼칼한 맛 조절' },
+          { id: 't-ing-8', name: '두부', base: 0.25, unit: '모', note: '먹기 좋게 도톰하게' },
+          { id: 't-ing-9', name: '쑥갓 (또는 미나리)', base: 25, unit: 'g', note: '마지막 향긋한 마무리' }
+        ],
+        sauceIngredients: [
+          { id: 't-sce-1', name: '고춧가루', base: 1.5, unit: '큰술', note: '얼큰하고 깔끔한 색감' },
+          { id: 't-sce-2', name: '고추장', base: 0.5, unit: '큰술', note: '국물에 은은한 감칠맛' },
+          { id: 't-sce-3', name: '된장 (핵심 비법!)', base: 0.25, unit: '큰술', note: '비린내 제거 & 깊은 맛' },
+          { id: 't-sce-4', name: '국간장 (또는 참치액)', base: 1, unit: '큰술', note: '기본 간 맞추기' },
+          { id: 't-sce-5', name: '다진 마늘', base: 0.5, unit: '큰술', note: '넉넉할수록 시원함' },
+          { id: 't-sce-6', name: '맛술 (또는 소주)', base: 1, unit: '큰술', note: '생선 잡내 날리기' },
+          { id: 't-sce-7', name: '생강가루 & 후춧가루', base: '약간', unit: '', note: '톡톡 두 번' }
+        ],
+        steps: [
+          {
+            id: 't-stp-1',
+            title: '서더리 핏물 및 검은 막 완벽 제거',
+            badges: ['손질 5분', '비린내 차단'],
+            desc: '서더리를 찬물에 헹구며 아가미 부위와 뼈 안쪽에 남아있는 붉은 핏덩이, 내장 검은 막을 말끔히 떼어냅니다. 맛술(소주) 1큰술을 살짝 뿌려두면 더욱 깔끔합니다.',
+            tip: '이 과정을 꼼꼼히 하면 횟집 전문점 못지않은 맑고 개운한 국물이 나와요.'
+          },
+          {
+            id: 't-stp-2',
+            title: '된장 반 스푼 넣은 얼큰 양념장 개어두기',
+            badges: ['준비 2분', '황금 비율'],
+            desc: '작은 그릇에 고춧가루, 고추장, 된장, 국간장, 다진 마늘, 맛술, 후추를 미리 섞어둡니다. 된장이 생선 비린내를 싹 잡아주고 국물에 깊은 감칠맛을 줍니다.',
+            tip: '양념장을 미리 섞어 5분만 두어도 고춧가루가 불어나 풋내가 나지 않아요.'
+          },
+          {
+            id: 't-stp-3',
+            title: '나박 썬 무와 물(쌀뜨물) 먼저 끓이기',
+            badges: ['🔥 강불 → 중불', '10분'],
+            desc: '냄비 바닥에 무를 깔고 물을 부어 강불에서 팔팔 끓입니다. 끓어오르면 중불로 줄여 10분간 무가 반투명해질 때까지 먼저 우려냅니다.',
+            tip: '무를 먼저 익혀두어야 생선 살이 부서지지 않고 국물은 시원해집니다.',
+            timerMinutes: 10,
+            timerLabel: '무 육수 끓이기'
+          },
+          {
+            id: 't-stp-4',
+            title: '서더리와 양념장 넣고 거품 걷으며 끓이기',
+            badges: ['🔥 중불', '10분'],
+            desc: '우러난 무 육수에 서더리와 양념장을 넣고 중불에서 10분간 푹 끓입니다. 끓으면서 올라오는 불순물 거품은 숟가락으로 꼼꼼히 걷어내 주세요.',
+            tip: '서더리를 넣은 뒤에는 젓가락으로 너무 휘젓지 않아야 살이 으스러지지 않아요.',
+            timerMinutes: 10,
+            timerLabel: '서더리 넣고 중불 끓이기'
+          },
+          {
+            id: 't-stp-5',
+            title: '야채·두부 넣고 3분 더 끓여 완성',
+            badges: ['🔥 중약불', '3분'],
+            desc: '애호박, 양파, 두부, 대파, 청양고추를 넣고 3분간 더 끓입니다. 국물 맛을 보고 싱거우면 국간장이나 소금으로 마무리 간을 맞춘 뒤, 불 끄기 직전 쑥갓(미나리)을 듬뿍 올려 완성합니다.',
+            tip: '라면사리나 수제비를 추가할 계획이라면 지금 국물을 조금 넉넉히 남겨두세요!',
+            timerMinutes: 3,
+            timerLabel: '야채 넣고 마무리 끓이기'
+          }
+        ]
+      }
+    };
+
+    // 2. 앱 상태 및 localStorage 관리
+    const STORAGE_KEY = 'hoe_tang_recipe_guide_v2';
+    let appState = {
+      servings: 2,
+      activeTab: 'timeline',
+      checked: {}
+    };
+
+    function loadState() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed.servings >= 1 && parsed.servings <= 4) appState.servings = parsed.servings;
+          if (['timeline', 'hoe', 'tang'].includes(parsed.activeTab)) appState.activeTab = parsed.activeTab;
+          if (parsed.checked && typeof parsed.checked === 'object') appState.checked = parsed.checked;
+        }
+      } catch (e) {
+        console.warn('localStorage 로드 실패:', e);
+      }
+    }
+
+    function saveState() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(appState));
+      } catch (e) {
+        console.warn('localStorage 저장 실패:', e);
+      }
+    }
+
+    // 3. 계량 자동 환산 포맷터
+    function formatAmount(base, servings, unit) {
+      if (typeof base === 'string') return base;
+      const val = Math.round(base * servings * 100) / 100;
+      const fractionMap = { 0.25: '¼', 0.5: '½', 0.75: '¾' };
+      const intPart = Math.floor(val);
+      const decPart = Math.round((val - intPart) * 100) / 100;
+
+      let formattedNum = '';
+      if (decPart === 0) {
+        formattedNum = String(intPart);
+      } else if (fractionMap[decPart]) {
+        formattedNum = intPart > 0 ? `${intPart}${fractionMap[decPart]}` : fractionMap[decPart];
+      } else {
+        formattedNum = String(Math.round(val * 10) / 10);
+      }
+      return unit ? `${formattedNum}${unit}` : formattedNum;
+    }
+
+    // 4. 토스트 알림
+    let toastTimeout = null;
+    function showToast(msg) {
+      const container = document.getElementById('toast-container');
+      const textEl = document.getElementById('toast-message');
+      textEl.textContent = msg;
+      container.classList.remove('opacity-0', '-translate-y-2');
+      container.classList.add('opacity-100', 'translate-y-0');
+
+      if (toastTimeout) clearTimeout(toastTimeout);
+      toastTimeout = setTimeout(() => {
+        container.classList.add('opacity-0', '-translate-y-2');
+        container.classList.remove('opacity-100', 'translate-y-0');
+      }, 2200);
+    }
+
+    // 5. 탭 전환 헬퍼
+    function switchTab(tabName, shouldScroll = true) {
+      if (!['timeline', 'hoe', 'tang'].includes(tabName)) return;
+      appState.activeTab = tabName;
+      saveState();
+      renderTabs();
+      if (shouldScroll) {
+        const navEl = document.querySelector('nav');
+        const y = navEl ? navEl.offsetTop - 8 : 0;
+        window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' });
+      }
+    }
+
+    // 6. UI 렌더링 함수들
+    function renderServingsSelector() {
+      const container = document.getElementById('servings-selector');
+      container.innerHTML = [1, 2, 3, 4].map(num => {
+        const isActive = appState.servings === num;
+        return `
+          <button type="button" data-servings="${num}"
+            class="serving-btn py-2 rounded-xl text-xs sm:text-sm font-extrabold transition-all duration-150 active:scale-95 ${
+              isActive
+                ? 'bg-charcoal text-white shadow-sm'
+                : 'bg-white text-stone-600 hover:bg-stone-100 border border-stone-200/70'
+            }">
+            ${num}인분
+          </button>
+        `;
+      }).join('');
+
+      document.querySelectorAll('.servings-badge').forEach(el => {
+        el.textContent = `${appState.servings}인분 기준`;
+      });
+
+      container.querySelectorAll('.serving-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const nextServings = Number(btn.dataset.servings);
+          if (appState.servings !== nextServings) {
+            appState.servings = nextServings;
+            saveState();
+            renderAll();
+            showToast(`${nextServings}인분 기준으로 모든 재료 계량이 환산되었어요!`);
+          }
+        });
+      });
+    }
+
+    function renderTabs() {
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        const tab = btn.dataset.tab;
+        const isActive = appState.activeTab === tab;
+        btn.setAttribute('aria-selected', isActive ? 'true' : 'false');
+
+        btn.className = 'tab-btn flex flex-col sm:flex-row items-center justify-center gap-1 py-2.5 px-2 rounded-xl text-xs sm:text-sm font-bold transition-all duration-200';
+        if (isActive) {
+          if (tab === 'hoe') {
+            btn.classList.add('bg-hoe', 'text-white', 'shadow-sm');
+          } else if (tab === 'tang') {
+            btn.classList.add('bg-tang', 'text-white', 'shadow-sm');
+          } else {
+            btn.classList.add('bg-white', 'text-charcoal', 'shadow-sm');
+          }
+        } else {
+          btn.classList.add('text-stone-500', 'hover:text-charcoal');
+        }
+      });
+
+      document.querySelectorAll('.tab-panel').forEach(panel => {
+        const isTarget = panel.id === `panel-${appState.activeTab}`;
+        panel.classList.toggle('hidden', !isTarget);
+      });
+    }
+
+    function createIngredientHTML(item, accentClass) {
+      const isChecked = !!appState.checked[item.id];
+      const amountText = formatAmount(item.base, appState.servings, item.unit);
+      const checkBg = accentClass === 'hoe' ? 'bg-hoe border-hoe' : 'bg-tang border-tang';
+
+      return `
+        <button type="button" data-check-id="${item.id}"
+          class="check-item w-full text-left flex items-center justify-between gap-3 p-3.5 rounded-2xl border border-stone-200/80 bg-cream/65 hover:bg-stone-100/80 active:scale-[0.99] transition-all ${isChecked ? 'item-checked' : ''}">
+          <div class="flex items-center gap-3 min-w-0">
+            <span class="w-5 h-5 rounded-md border-2 flex items-center justify-center shrink-0 transition-colors ${
+              isChecked ? `${checkBg} text-white` : 'border-stone-300 bg-white'
+            }">
+              ${isChecked ? '<svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="3" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7"/></svg>' : ''}
+            </span>
+            <div class="min-w-0">
+              <div class="item-title text-sm font-bold text-charcoal leading-snug">${item.name}</div>
+              ${item.note ? `<div class="text-[11px] text-stone-500 mt-0.5">${item.note}</div>` : ''}
+            </div>
+          </div>
+          <span class="shrink-0 text-sm font-extrabold px-2.5 py-1 rounded-xl ${
+            accentClass === 'hoe' ? 'bg-hoe-soft text-hoe-dark' : 'bg-tang-soft text-tang-dark'
+          }">${amountText}</span>
+        </button>
+      `;
+    }
+
+    function createStepHTML(step, index, accentClass) {
+      const isChecked = !!appState.checked[step.id];
+      const badgeBg = accentClass === 'hoe' ? 'bg-hoe-soft text-hoe-dark' : 'bg-tang-soft text-tang-dark';
+      const numBg = accentClass === 'hoe' ? 'bg-hoe text-white' : 'bg-tang text-white';
+
+      return `
+        <div class="rounded-3xl border border-stone-200/80 bg-white p-4 sm:p-5 shadow-soft transition-all ${isChecked ? 'item-checked' : ''}">
+          <div class="flex items-start justify-between gap-3">
+            <button type="button" data-check-id="${step.id}" class="check-item flex items-start gap-3 text-left flex-1">
+              <span class="w-7 h-7 rounded-xl text-xs font-extrabold flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                isChecked ? 'bg-stone-400 text-white' : numBg
+              }">
+                ${isChecked ? '✓' : index + 1}
+              </span>
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
+                  ${step.badges.map(b => `<span class="text-[11px] font-bold px-2 py-0.5 rounded-full ${badgeBg}">${b}</span>`).join('')}
+                </div>
+                <h4 class="item-title text-base font-extrabold text-charcoal leading-snug">${step.title}</h4>
+                <p class="text-sm text-stone-600 mt-1.5 leading-relaxed">${step.desc}</p>
+              </div>
+            </button>
+          </div>
+
+          ${step.tip ? `
+            <div class="mt-3 ml-10 px-3 py-2 rounded-xl bg-amber-50/80 border border-amber-200/50 text-xs text-amber-900 leading-relaxed">
+              <span class="font-extrabold">💡 포인트:</span> ${step.tip}
+            </div>
+          ` : ''}
+
+          ${step.timerMinutes ? `
+            <div class="mt-3 ml-10">
+              <button type="button" data-start-timer="${step.timerMinutes}" data-timer-label="${step.timerLabel}"
+                class="step-timer-btn inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-tang text-white hover:bg-tang-dark active:scale-95 text-xs font-extrabold shadow-sm transition">
+                <span>⏱️</span>
+                <span>${step.timerMinutes}분 타이머 바로 시작</span>
+              </button>
+            </div>
+          ` : ''}
+        </div>
+      `;
+    }
+
+    function renderTimeline() {
+      const container = document.getElementById('timeline-steps-container');
+      const items = RECIPE_DATA.timeline;
+      let doneCount = 0;
+
+      container.innerHTML = items.map((step, idx) => {
+        const isChecked = !!appState.checked[step.id];
+        if (isChecked) doneCount++;
+
+        let catBadgeClass = 'bg-stone-800 text-white';
+        let borderAccent = 'border-l-charcoal';
+        if (step.category === 'hoe') {
+          catBadgeClass = 'bg-hoe-soft text-hoe-dark';
+          borderAccent = 'border-l-hoe';
+        } else if (step.category === 'tang') {
+          catBadgeClass = 'bg-tang-soft text-tang-dark';
+          borderAccent = 'border-l-tang';
+        }
+
+        return `
+          <div class="rounded-3xl bg-white border border-stone-200/80 border-l-4 ${borderAccent} p-4 sm:p-5 shadow-soft transition-all ${isChecked ? 'item-checked' : ''}">
+            <button type="button" data-check-id="${step.id}" class="check-item w-full text-left flex items-start gap-3">
+              <span class="w-6 h-6 rounded-full border-2 flex items-center justify-center shrink-0 mt-0.5 transition-colors ${
+                isChecked ? 'bg-charcoal border-charcoal text-white' : 'border-stone-300 bg-white text-stone-400 text-xs font-bold'
+              }">
+                ${isChecked ? '✓' : idx + 1}
+              </span>
+              <div class="flex-1 min-w-0">
+                <div class="flex flex-wrap items-center gap-1.5 mb-1.5">
+                  <span class="text-[11px] font-extrabold px-2 py-0.5 rounded-full ${catBadgeClass}">${step.categoryLabel}</span>
+                  <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-stone-100 text-stone-600">🕒 ${step.timeRange}</span>
+                  <span class="text-[11px] font-bold px-2 py-0.5 rounded-full bg-amber-50 text-amber-800">🔥 ${step.heat}</span>
+                </div>
+                <h3 class="item-title text-base font-extrabold text-charcoal leading-snug">${step.title}</h3>
+                <p class="text-sm text-stone-600 mt-1.5 leading-relaxed">${step.desc}</p>
+              </div>
+            </button>
+
+            <div class="mt-3 ml-9 px-3 py-2 rounded-xl bg-cream border border-stone-200/70 text-xs text-stone-700 leading-relaxed">
+              <span class="font-extrabold text-charcoal">✨ 핵심 팁:</span> ${step.tip}
+            </div>
+
+            ${step.timerMinutes ? `
+              <div class="mt-3 ml-9">
+                <button type="button" data-start-timer="${step.timerMinutes}" data-timer-label="${step.timerLabel}"
+                  class="step-timer-btn inline-flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-tang text-white hover:bg-tang-dark active:scale-95 text-xs font-extrabold shadow-sm transition">
+                  <span>⏱️</span>
+                  <span>${step.timerMinutes}분 타이머 시작 (${step.timerLabel})</span>
+                </button>
+              </div>
+            ` : ''}
+          </div>
+        `;
+      }).join('');
+
+      const pct = Math.round((doneCount / items.length) * 100);
+      document.getElementById('timeline-progress-text').textContent = `${doneCount} / ${items.length} 완료`;
+      document.getElementById('timeline-progress-bar').style.width = `${pct}%`;
+    }
+
+    function renderRecipeSection(key) {
+      const data = RECIPE_DATA[key];
+      const baseEl = document.getElementById(`${key}-base-ingredients`);
+      const sauceEl = document.getElementById(`${key}-sauce-ingredients`);
+      const stepsEl = document.getElementById(`${key}-steps-container`);
+
+      baseEl.innerHTML = data.baseIngredients.map(i => createIngredientHTML(i, key)).join('');
+      sauceEl.innerHTML = data.sauceIngredients.map(i => createIngredientHTML(i, key)).join('');
+      stepsEl.innerHTML = data.steps.map((s, idx) => createStepHTML(s, idx, key)).join('');
+
+      // 재료 진행률 계산 (기본 재료 + 양념장 합산)
+      const allIngs = [...data.baseIngredients, ...data.sauceIngredients];
+      const doneIngs = allIngs.filter(i => !!appState.checked[i.id]).length;
+      const ingPct = Math.round((doneIngs / allIngs.length) * 100);
+      document.getElementById(`${key}-ing-progress-text`).textContent = `${doneIngs} / ${allIngs.length} 준비 완료`;
+      document.getElementById(`${key}-ing-progress-bar`).style.width = `${ingPct}%`;
+
+      // 조리 단계 진행률 계산
+      const doneSteps = data.steps.filter(s => !!appState.checked[s.id]).length;
+      document.getElementById(`${key}-step-progress-text`).textContent = `${doneSteps} / ${data.steps.length} 완료`;
+    }
+
+    function bindDynamicEvents() {
+      document.querySelectorAll('.check-item').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const id = btn.dataset.checkId;
+          appState.checked[id] = !appState.checked[id];
+          saveState();
+          renderTimeline();
+          renderRecipeSection('hoe');
+          renderRecipeSection('tang');
+          bindDynamicEvents();
+        });
+      });
+
+      document.querySelectorAll('.step-timer-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const minutes = Number(btn.dataset.startTimer);
+          const label = btn.dataset.timerLabel || '주방 타이머';
+          startTimerWithPreset(minutes, label);
+        });
+      });
+    }
+
+    function renderAll() {
+      renderServingsSelector();
+      renderTabs();
+      renderTimeline();
+      renderRecipeSection('hoe');
+      renderRecipeSection('tang');
+      bindDynamicEvents();
+    }
+
+    // 7. Web Audio API 부드러운 차임벨 알림음
+    let audioCtx = null;
+    function initAudioContext() {
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          if (AudioContextClass) audioCtx = new AudioContextClass();
+        }
+        if (audioCtx && audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+      } catch (e) {
+        console.warn('AudioContext 초기화 오류:', e);
+      }
+    }
+
+    function playChimeSound() {
+      try {
+        initAudioContext();
+        if (!audioCtx) return;
+
+        const notes = [523.25, 659.25, 783.99, 1046.50]; // C5-E5-G5-C6
+        const now = audioCtx.currentTime;
+
+        notes.forEach((freq, i) => {
+          const osc = audioCtx.createOscillator();
+          const gain = audioCtx.createGain();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(freq, now + i * 0.16);
+
+          gain.gain.setValueAtTime(0.001, now + i * 0.16);
+          gain.gain.exponentialRampToValueAtTime(0.22, now + i * 0.16 + 0.03);
+          gain.gain.exponentialRampToValueAtTime(0.001, now + i * 0.16 + 0.55);
+
+          osc.connect(gain);
+          gain.connect(audioCtx.destination);
+
+          osc.start(now + i * 0.16);
+          osc.stop(now + i * 0.16 + 0.6);
+        });
+      } catch (e) {
+        console.warn('알림음 재생 실패:', e);
+      }
+    }
+
+    // 8. 플로팅 미니 주방 타이머 로직
+    const timerState = {
+      remainingSeconds: 0,
+      isRunning: false,
+      label: '주방 타이머',
+      intervalId: null
+    };
+
+    const timerDisplayEl = document.getElementById('timer-display');
+    const timerLabelEl = document.getElementById('timer-label');
+    const timerToggleBtn = document.getElementById('btn-timer-toggle');
+    const timerToggleIcon = document.getElementById('timer-toggle-icon');
+    const timerToggleText = document.getElementById('timer-toggle-text');
+    const timerCardEl = document.getElementById('timer-card');
+    const timerIconBox = document.getElementById('timer-icon-box');
+
+    function updateTimerUI() {
+      const mins = Math.floor(timerState.remainingSeconds / 60);
+      const secs = timerState.remainingSeconds % 60;
+      timerDisplayEl.textContent = `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
+      timerLabelEl.textContent = timerState.label;
+
+      if (timerState.isRunning) {
+        timerToggleIcon.textContent = '⏸';
+        timerToggleText.textContent = '일시정지';
+        timerToggleBtn.classList.remove('bg-tang', 'hover:bg-tang-dark');
+        timerToggleBtn.classList.add('bg-amber-600', 'hover:bg-amber-700');
+        timerIconBox.classList.add('bg-tang/25', 'text-orange-300');
+      } else {
+        timerToggleIcon.textContent = '▶';
+        timerToggleText.textContent = '시작';
+        timerToggleBtn.classList.remove('bg-amber-600', 'hover:bg-amber-700');
+        timerToggleBtn.classList.add('bg-tang', 'hover:bg-tang-dark');
+        timerIconBox.classList.remove('bg-tang/25', 'text-orange-300');
+      }
+    }
+
+    function stopTimerInterval() {
+      if (timerState.intervalId) {
+        clearInterval(timerState.intervalId);
+        timerState.intervalId = null;
+      }
+      timerState.isRunning = false;
+    }
+
+    function runTimer() {
+      if (timerState.remainingSeconds <= 0) {
+        showToast('먼저 아래에서 시간(3·5·10·15분)을 선택해 주세요!');
+        return;
+      }
+      initAudioContext();
+      timerCardEl.classList.remove('timer-done-pulse');
+      timerState.isRunning = true;
+      updateTimerUI();
+
+      timerState.intervalId = setInterval(() => {
+        if (timerState.remainingSeconds > 0) {
+          timerState.remainingSeconds--;
+          updateTimerUI();
+        }
+        if (timerState.remainingSeconds <= 0) {
+          stopTimerInterval();
+          updateTimerUI();
+          onTimerComplete();
+        }
+      }, 1000);
+    }
+
+    function onTimerComplete() {
+      timerCardEl.classList.add('timer-done-pulse');
+      playChimeSound();
+      setTimeout(playChimeSound, 1400);
+
+      const modal = document.getElementById('timer-done-modal');
+      document.getElementById('timer-done-title').textContent = `"${timerState.label}" 완료!`;
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function startTimerWithPreset(minutes, label) {
+      stopTimerInterval();
+      timerState.remainingSeconds = minutes * 60;
+      timerState.label = label || `${minutes}분 주방 타이머`;
+      updateTimerUI();
+      runTimer();
+      showToast(`⏱️ ${timerState.label} (${minutes}분) 시작!`);
+    }
+
+    // 9. 초기 이벤트 바인딩
+    document.addEventListener('DOMContentLoaded', () => {
+      loadState();
+      renderAll();
+      updateTimerUI();
+
+      // 상단 2분할 히어로 카드 클릭 시 해당 메뉴 탭으로 이동
+      document.querySelectorAll('[data-jump-tab]').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchTab(btn.dataset.jumpTab, true);
+        });
+      });
+
+      // 상단 고정 탭 클릭
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          switchTab(btn.dataset.tab, true);
+        });
+      });
+
+      // 타이머 시작/일시정지
+      timerToggleBtn.addEventListener('click', () => {
+        if (timerState.isRunning) {
+          stopTimerInterval();
+          updateTimerUI();
+        } else {
+          runTimer();
+        }
+      });
+
+      // 타이머 초기화
+      document.getElementById('btn-timer-reset').addEventListener('click', () => {
+        stopTimerInterval();
+        timerState.remainingSeconds = 0;
+        timerState.label = '주방 타이머';
+        timerCardEl.classList.remove('timer-done-pulse');
+        updateTimerUI();
+        showToast('타이머가 초기화되었어요.');
+      });
+
+      // 퀵 타이머 버튼 (3, 5, 10, 15분)
+      document.querySelectorAll('.quick-timer-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+          const mins = Number(btn.dataset.quickMin);
+          startTimerWithPreset(mins, `${mins}분 주방 타이머`);
+        });
+      });
+
+      // 타이머 완료 모달 닫기
+      document.getElementById('btn-close-timer-done').addEventListener('click', () => {
+        const modal = document.getElementById('timer-done-modal');
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        timerCardEl.classList.remove('timer-done-pulse');
+      });
+
+      // 체크 초기화 모달 열기/닫기/실행
+      const resetModal = document.getElementById('reset-modal');
+      document.getElementById('btn-open-reset').addEventListener('click', () => {
+        resetModal.classList.remove('hidden');
+        resetModal.classList.add('flex');
+      });
+
+      document.getElementById('btn-cancel-reset').addEventListener('click', () => {
+        resetModal.classList.add('hidden');
+        resetModal.classList.remove('flex');
+      });
+
+      document.getElementById('btn-confirm-reset').addEventListener('click', () => {
+        appState.checked = {};
+        saveState();
+        renderAll();
+        resetModal.classList.add('hidden');
+        resetModal.classList.remove('flex');
+        showToast('모든 체크 표시가 초기화되었어요.');
+      });
+
+      resetModal.addEventListener('click', (e) => {
+        if (e.target === resetModal) {
+          resetModal.classList.add('hidden');
+          resetModal.classList.remove('flex');
+        }
+      });
+    });
+  </script>
+</body>
+</html>
